@@ -55,6 +55,10 @@
       "jest",
       "beforeAll",
       "afterAll"
+    ],
+    "ignore": [
+      "app/dist/**/*.js",
+      "test/acceptance/**/*.js"
     ]
   },
   "nodemonConfig": {
