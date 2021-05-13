@@ -10,6 +10,10 @@ labels:
 appInsights:
   key:
 
+service:
+  port: 80
+  type: ClusterIP
+
 containerConfigMap:
   name: ffc-sfi-map-web-config-map
 
