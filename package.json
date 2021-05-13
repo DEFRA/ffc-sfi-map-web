@@ -9,17 +9,48 @@
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js"
   },
-  "author": "Defra",
-  "contributors": [],
+  "author": "Defra DDTS",
+  "contributors": [
+    "John Watson john.watson2@rpa.gov.uk",
+    "Fay Toward fay.toward@rpa.gov.uk",
+    "Steve Dickinson steve.dickinson@defra.gov.uk",
+    "Fareed Mohammed fareed.mohammed@defra.gov.uk",
+    "Kaz Iyiola kaz.iyiola@defra.gov.uk"
+  ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@hapi/hapi": "^20.0.0"
+    "@hapi/boom": "^9.1.1",
+    "@hapi/hapi": "^20.1.0",
+    "@hapi/inert": "^6.0.3",
+    "@hapi/vision": "^6.0.1",
+    "applicationinsights": "^1.8.10",
+    "govuk-frontend": "^3.11.0",
+    "joi": "^17.4.0",
+    "moment": "^2.29.1",
+    "nunjucks": "^3.2.3"
   },
   "devDependencies": {
-    "jest": "^26.4.0",
-    "jest-junit": "^11.1.0",
-    "nodemon": "^2.0.4",
-    "standard": "^14.3.4"
+    "@hapi/good": "^9.0.1",
+    "@hapi/good-console": "^9.0.1",
+    "@hapi/good-squeeze": "^6.0.0",
+    "blipp": "^4.0.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "mini-css-extract-plugin": "^0.10.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "pa11y": "^5.3.0",
+    "resolve-url-loader": "^3.1.2",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "standard": "^16.0.3",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "standard": {
     "globals": [
