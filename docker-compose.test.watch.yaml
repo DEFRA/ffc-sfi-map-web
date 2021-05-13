@@ -1,6 +1,6 @@
 version: '3.8'
 
 services:
-  ffc-template-node:
+  ffc-sfi-map-web:
     command: >
       sh -c "npm run test:watch"
