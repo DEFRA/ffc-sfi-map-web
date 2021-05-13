@@ -4,11 +4,11 @@ version: '3.8'
 # to provide dependencies and expose ports for local testing
 
 services:
-  ffc-template-node:
+  ffc-sfi-map-web:
     build:
       target: development
-    image: ffc-template-node-development
-    container_name: ffc-template-node-development
+    image: ffc-sfi-map-web-development
+    container_name: ffc-sfi-map-web-development
     ports:
       - "3000:3000"
       - "9229:9229"
