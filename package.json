@@ -1,13 +1,20 @@
 {
   "name": "ffc-sfi-map-web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "FFC SFI front end mapping application",
   "homepage": "https://github.com/DEFRA/ffc-sfi-map-web",
   "main": "app/index.js",
   "scripts": {
-    "test": "jest --runInBand  --forceExit",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
+    "pretest": "npm run test:lint",
+    "test": "jest --runInBand --forceExit",
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
-    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js"
+    "test:lint": "standard",
+    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js",
+    "start:watch": "npm-run-all --parallel build:watch start:nodemon",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js"
   },
   "author": "Defra DDTS",
   "contributors": [
@@ -30,24 +37,19 @@
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
-    "@hapi/good": "^9.0.1",
-    "@hapi/good-console": "^9.0.1",
-    "@hapi/good-squeeze": "^6.0.0",
-    "blipp": "^4.0.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.1",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
-    "jest": "^26.6.3",
-    "jest-junit": "^12.0.0",
+    "jest": "^26.4.0",
+    "jest-junit": "^11.1.0",
     "mini-css-extract-plugin": "^0.10.0",
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "pa11y": "^5.3.0",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
-    "standard": "^16.0.3",
+    "standard": "^14.3.4",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
@@ -62,6 +64,10 @@
       "jest",
       "beforeAll",
       "afterAll"
+    ],
+    "ignore": [
+      "app/dist/**/*.js",
+      "test/acceptance/**/*.js"
     ]
   },
   "nodemonConfig": {

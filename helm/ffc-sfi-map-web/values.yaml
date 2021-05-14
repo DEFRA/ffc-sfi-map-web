@@ -4,10 +4,22 @@ namespace: ffc-sfi
 workstream: ffc-sfi
 image: ffc-sfi-map-web
 
-labels: {}
+labels:
+  component: web
+
+appInsights:
+  key:
+
+service:
+  port: 80
+  type: ClusterIP
 
 containerConfigMap:
   name: ffc-sfi-map-web-config-map
+
+containerSecret:
+  name: ffc-sfi-map-web-container-secret
+  type: Opaque
 
 deployment:
   restartPolicy: Always
@@ -22,6 +34,12 @@ container:
   limitMemory: 40Mi
   limitCpu: 40m
   port: 3000
+  googleTagManagerKey:
+
+ingress:
+  class: nginx
+  endpoint: ffc-sfi-map-web
+  server: example.com
 
 livenessProbe:
   path: /healthz
