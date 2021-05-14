@@ -67,7 +67,8 @@
       "afterEach",
       "jest",
       "beforeAll",
-      "afterAll"
+      "afterAll",
+      "XMLHttpRequest"
     ],
     "ignore": [
       "app/dist/**/*.js",

@@ -29,7 +29,7 @@ module.exports = {
         }
       }
     },
-    path: ['../views', '../../node_modules/@envage/hapi-govuk-question-page'],
+    path: ['../views'],
     relativeTo: __dirname,
     isCached: !config.isDev,
     context: {
