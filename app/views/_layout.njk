@@ -1,0 +1,70 @@
+{% extends "govuk/template.njk" %}
+
+{% block head %}
+{% if cookiesPolicy and cookiesPolicy.analytics %}
+  {% include "./tag-manager/head-content.njk" %}
+{% endif %}
+  <!--[if !IE 8]><!-->
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+  <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="{{ govukAssetPath }}/govuk-frontend/govuk/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "/",
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: "/"
+  }) }}
+{% endblock %}
+
+{% block bodyStart %}
+  {% if cookiesPolicy and not cookiesPolicy.confirmed %}
+    {% include "./cookies/cookie-banner.njk" %}
+  {% endif %}
+
+  {% if cookiesPolicy and cookiesPolicy.analytics %}
+    {% include "./tag-manager/body-content.njk" %}
+  {% endif %}
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Default page template</h1>
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "/cookies",
+          text: "Cookies"
+        }
+      ]
+    }
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
+{% endblock %}
