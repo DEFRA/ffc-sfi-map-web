@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-map-web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "FFC SFI front end mapping application",
   "homepage": "https://github.com/DEFRA/ffc-sfi-map-web",
   "main": "app/index.js",
@@ -20,7 +20,10 @@
   "contributors": [],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@hapi/hapi": "^20.0.0",
+    "@hapi/boom": "^9.1.1",
+    "@hapi/hapi": "^20.1.0",
+    "@hapi/inert": "^6.0.3",
+    "@hapi/vision": "^6.0.1",
     "applicationinsights": "^1.8.10",
     "govuk-frontend": "^3.11.0",
     "joi": "^17.4.0",

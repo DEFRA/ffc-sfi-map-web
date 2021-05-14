@@ -1,0 +1,56 @@
+{% extends 'layout.njk' %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "#"
+      }]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">FFC SFI Map Web Service</h1>     
+
+      {{ govukButton({
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        href: "/claim/name",
+        isStartButton: true,
+        text: "Start new claim"
+      }) }}
+
+      <h2 class="govuk-heading-m">Before you start</h2>
+
+      <p class="govuk-body">This is a proof of concept sample application. Actual financial aid is not available.</p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Useful links
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list govuk-!-font-size-16">
+            <li>
+              <a class="govuk-link" href="/clear-session">
+                Clear Session
+              </a>
+            </li>
+            <li>
+              <a class="govuk-link" href="/account">
+                Account
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+  </div>
+{% endblock %}
