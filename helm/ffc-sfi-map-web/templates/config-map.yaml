@@ -4,5 +4,7 @@ data:
   NODE_ENV: {{ quote .Values.environment }}
   PORT: {{ quote .Values.container.port }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
-  GOOGLE_TAG_MANAGER_KEY: {{ quote .Values.container.googleTagManagerKey}}
+  {{- if .Values.container.googleTagManagerKey }}
+  GOOGLE_TAG_MANAGER_KEY: {{ quote .Values.container.googleTagManagerKey }}
+  {{- end }}
 {{- end -}}

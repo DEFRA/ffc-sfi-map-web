@@ -4,7 +4,7 @@
   {% include "./tag-manager/head-content.njk" %}
   <!--[if !IE 8]><!-->
   
-  <link href="/static/css/application.3ac4fd40c8a06fcffcf0.css" rel="stylesheet">
+  <link href="/static/css/application.113b314a1b053d3f1b2b.css" rel="stylesheet">
   
   <!--<![endif]-->
 
@@ -46,16 +46,7 @@
 {% block footer %}
   {{ govukFooter({
     meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: "Cookies"
-        },
-        {
-          href: "/accessibility",
-          text: "Accessibility statement"
-        }
-      ]
+      items: []
     }
   }) }}
 {% endblock %}
@@ -63,6 +54,6 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
 
-  <script src="/static/js/bundle.3ac4fd40c8a06fcffcf0.js"></script>
+  <script src="/static/js/bundle.113b314a1b053d3f1b2b.js"></script>
 
 {% endblock %}
