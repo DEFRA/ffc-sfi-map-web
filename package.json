@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-map-web",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "FFC SFI front end mapping application",
   "homepage": "https://github.com/DEFRA/ffc-sfi-map-web",
   "main": "app/index.js",
@@ -16,15 +16,25 @@
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
     "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js"
   },
-  "author": "Defra",
-  "contributors": [],
+  "author": "Defra DDTS",
+  "contributors": [
+    "John Watson john.watson2@rpa.gov.uk",
+    "Fay Toward fay.toward@rpa.gov.uk",
+    "Steve Dickinson steve.dickinson@defra.gov.uk",
+    "Fareed Mohammed fareed.mohammed@defra.gov.uk",
+    "Kaz Iyiola kaz.iyiola@defra.gov.uk"
+  ],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@hapi/boom": "^9.1.1",
+    "@hapi/good": "^9.0.1",
+    "@hapi/good-console": "^9.0.1",
+    "@hapi/good-squeeze": "^6.0.0",
     "@hapi/hapi": "^20.1.0",
     "@hapi/inert": "^6.0.3",
     "@hapi/vision": "^6.0.1",
     "applicationinsights": "^1.8.10",
+    "blipp": "^4.0.2",
     "govuk-frontend": "^3.11.0",
     "joi": "^17.4.0",
     "moment": "^2.29.1",
@@ -57,7 +67,8 @@
       "afterEach",
       "jest",
       "beforeAll",
-      "afterAll"
+      "afterAll",
+      "XMLHttpRequest"
     ],
     "ignore": [
       "app/dist/**/*.js",

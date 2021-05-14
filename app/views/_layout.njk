@@ -1,7 +1,9 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-  {% include "./tag-manager/head-content.njk" %}
+  {% if cookiesPolicy and cookiesPolicy.analytics %}
+    {% include "./tag-manager/head-content.njk" %}
+  {% endif %}
   <!--[if !IE 8]><!-->
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
   <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
@@ -29,10 +31,14 @@
   }) }}
 {% endblock %}
 
-{% block bodyStart %}  
+{% block bodyStart %}
+  {% if cookiesPolicy and not cookiesPolicy.confirmed %}
+    {% include "./cookies/cookie-banner.njk" %}
+  {% endif %}
 
-  {% include "./tag-manager/body-content.njk" %}
-
+  {% if cookiesPolicy and cookiesPolicy.analytics %}
+    {% include "./tag-manager/body-content.njk" %}
+  {% endif %}
 {% endblock %}
 
 {% block pageTitle %}
@@ -45,7 +51,12 @@
 {% block footer %}
   {{ govukFooter({
     meta: {
-      items: []
+      items: [
+        {
+          href: "/cookies",
+          text: "Cookies"
+        }
+      ]
     }
   }) }}
 {% endblock %}
