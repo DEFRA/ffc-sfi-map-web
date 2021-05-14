@@ -20,31 +20,13 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-   
-    {% if errors %}
-    {{ govukErrorSummary({
-      titleText: 'Errors have been identified',
-      errorList: errors
-    }) }}
-    {% endif %}
-
     <form method="POST" action="/search">
-      {{ govukInput({
-        label: {
-          text: "Enter Single Business Identifier (SBI)",
-          classes: "govuk-label--l",
-          isPageHeading: true
-        },
-        id: "sbi",
-        name: "sbi"
-      }) }}
-
+      {{ govukInput(model) }}
       {{ govukButton({
         text: "Continue"
       }) }}
     </form>
   </div>
   <div>
-
 </div>
 {% endblock %}
