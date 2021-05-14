@@ -14,7 +14,8 @@ const schema = joi.object({
     isHttpOnly: joi.bool().default(true),
     clearInvalid: joi.bool().default(false),
     strictHeader: joi.bool().default(true)
-  })
+  }),
+  publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/')
 })
 
 // Build config
@@ -31,7 +32,8 @@ const config = {
     isHttpOnly: true,
     clearInvalid: false,
     strictHeader: true
-  }
+  },
+  publicApi: process.env.PUBLIC_API
 }
 
 // Validate config
