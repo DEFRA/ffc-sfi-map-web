@@ -7,4 +7,6 @@ services:
       target: production
     image: ffc-sfi-map-web
     container_name: ffc-sfi-map-web
-    environment: {}
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-sfi-map-web-local
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}

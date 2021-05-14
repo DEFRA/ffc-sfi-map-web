@@ -7,28 +7,43 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "test": "jest --runInBand",
+    "pretest": "npm run test:lint",
+    "test": "jest --runInBand --forceExit",
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
-    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js"
+    "test:lint": "standard",
+    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js",
+    "start:watch": "npm-run-all --parallel build:watch start:nodemon",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js"
   },
   "author": "Defra",
   "contributors": [],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@hapi/hapi": "^20.0.0",
-    "@hapi/vision": "^6.0.1",
+    "applicationinsights": "^1.8.10",
     "govuk-frontend": "^3.11.0",
     "joi": "^17.4.0",
     "moment": "^2.29.1",
-    "nunjucks": "^3.2.3",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "nunjucks": "^3.2.3"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
     "jest": "^26.4.0",
     "jest-junit": "^11.1.0",
+    "mini-css-extract-plugin": "^0.10.0",
     "nodemon": "^2.0.4",
-    "standard": "^14.3.4"
+    "npm-run-all": "^4.1.5",
+    "resolve-url-loader": "^3.1.2",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "standard": "^14.3.4",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "standard": {
     "globals": [
@@ -40,6 +55,10 @@
       "jest",
       "beforeAll",
       "afterAll"
+    ],
+    "ignore": [
+      "app/dist/**/*.js",
+      "test/acceptance/**/*.js"
     ]
   },
   "nodemonConfig": {

@@ -3,9 +3,9 @@
 {% block head %}
   {% include "./tag-manager/head-content.njk" %}
   <!--[if !IE 8]><!-->
-  <% htmlWebpackPlugin.files.css.forEach(file => { %>
-  <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
-  <% }) %>
+  
+  <link href="/static/css/application.113b314a1b053d3f1b2b.css" rel="stylesheet">
+  
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -53,7 +53,7 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-<% htmlWebpackPlugin.files.js.forEach(file => { %>
-  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
-<% }) %>
+
+  <script src="/static/js/bundle.113b314a1b053d3f1b2b.js"></script>
+
 {% endblock %}
