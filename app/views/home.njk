@@ -17,13 +17,13 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">FFC SFI Map Web Service</h1>     
+      <h1 class="govuk-heading-xl">{{serviceName}}</h1>
 
       {{ govukButton({
         classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
-        href: "/claim/name",
+        href: "/search",
         isStartButton: true,
-        text: "Start new claim"
+        text: "Search Single Business Identifier"
       }) }}
 
       <h2 class="govuk-heading-m">Before you start</h2>

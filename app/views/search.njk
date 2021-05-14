@@ -1,0 +1,50 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+   
+    {% if errors %}
+    {{ govukErrorSummary({
+      titleText: 'Errors have been identified',
+      errorList: errors
+    }) }}
+    {% endif %}
+
+    <form method="POST" action="/search">
+      {{ govukInput({
+        label: {
+          text: "Enter Single Business Identifier (SBI)",
+          classes: "govuk-label--l",
+          isPageHeading: true
+        },
+        id: "sbi",
+        name: "sbi"
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+  <div>
+
+</div>
+{% endblock %}
