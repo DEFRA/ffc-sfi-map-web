@@ -8,7 +8,9 @@ const isDev = process.env.NODE_ENV === 'development' || process.env.NODE_ENV ===
 console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
-  entry: './app/frontend/index.js',
+  entry: [
+    './app/frontend/css/index.js',
+    './app/frontend/js/map.js'],
   mode: isDev ? 'development' : 'production',
   module: {
     rules: [

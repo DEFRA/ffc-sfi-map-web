@@ -24,10 +24,21 @@ module.exports = [{
       directory: {
         path: [
           'app/dist',
-          'node_modules/govuk-frontend/govuk/assets',
-          'app/static'
+          'node_modules/govuk-frontend/govuk/assets'
         ]
       }
+    },
+    cache: {
+      expiresIn: config.staticCacheTimeoutMillis,
+      privacy: 'private'
+    }
+  }
+}, {
+  method: 'GET',
+  path: '/static/cookies.js',
+  options: {
+    handler: {
+      file: 'app/frontend/js/cookies.js'
     },
     cache: {
       expiresIn: config.staticCacheTimeoutMillis,

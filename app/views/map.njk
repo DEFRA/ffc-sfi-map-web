@@ -21,19 +21,12 @@
 {% endblock %}
 
 {% block content %}
-<style>
-  .map {
-    height: 500px;
-    width: 100%;
-  }
-</style>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">
       <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
       Your land parcels
     </h1>
-    {# <p class="govuk-body">{{ parcels }}</p> #}
     <div id="map" class="map"></div>
   </div>
 </div>
