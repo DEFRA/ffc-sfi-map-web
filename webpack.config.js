@@ -63,7 +63,7 @@ module.exports = {
   output: {
     filename: 'js/[name].[fullhash].js',
     path: path.resolve(__dirname, 'app/dist'),
-    libraryTarget: '[name]'
+    library: '[name]'
   },
   plugins: [
     new CleanWebpackPlugin(),
