@@ -32,40 +32,5 @@
 </div>
 <script>
   const parcels = {{ parcels | dump | safe }}
-
-  {# const styles = {
-    'Polygon': new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color: 'blue',
-        width: 3
-      }),
-      fill: new ol.style.Fill({
-        color: 'rgba(0, 0, 255, 0.1)'
-      })
-    })
-  }
-
-  const styleFunction = function (feature) {
-    return styles[feature.getGeometry().getType()]
-  }
-
-  const features = new ol.format.GeoJSON().readFeatures(parcels)
-  const parcelSource = new ol.source.Vector({ features })
-  const parcelLayer = new ol.layer.Vector({ source: parcelSource, style: styleFunction })
-  const baseLayer = new ol.layer.Tile({ source: new ol.source.OSM() })
-  const view = new ol.View({
-    center: [-0.466925, 53.956291],
-    zoom: 14,
-    projection: 'EPSG:4326'
-  })
-
-  const map = new ol.Map({
-    layers: [
-      baseLayer,
-      parcelLayer
-    ],
-    target: 'map',
-    view
-  }) #}
 </script>
 {% endblock %}
