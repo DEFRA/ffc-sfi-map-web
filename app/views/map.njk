@@ -21,13 +21,58 @@
 {% endblock %}
 
 {% block content %}
+<style>
+  .map {
+    height: 500px;
+    width: 100%;
+  }
+</style>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-  <h1 class="govuk-heading-l">
-    <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
-    Your land parcels
-  </h1>
-  <p class="govuk-body">{{ parcels }}</p>
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
+      Your land parcels
+    </h1>
+    {# <p class="govuk-body">{{ parcels }}</p> #}
+    <div id="map" class="map"></div>
   </div>
 </div>
+<script type="text/javascript">
+  const parcels = {{ parcels | dump | safe }}
+
+  const styles = {
+    'Polygon': new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: 'blue',
+        width: 3
+      }),
+      fill: new ol.style.Fill({
+        color: 'rgba(0, 0, 255, 0.1)'
+      })
+    })
+  }
+
+  const styleFunction = function (feature) {
+    return styles[feature.getGeometry().getType()]
+  }
+
+  const features = new ol.format.GeoJSON().readFeatures(parcels)
+  const vectorSource = new ol.source.Vector({ features })
+  const vectorLayer = new ol.layer.Vector({ source: vectorSource, style: styleFunction })
+  const baseLayer = new ol.layer.Tile({ source: new ol.source.OSM() })
+  const view = new ol.View({
+    center: [-0.466925, 53.956291],
+    zoom: 14,
+    projection: 'EPSG:4326'
+  })
+
+  const map = new ol.Map({
+    layers: [
+      baseLayer,
+      vectorLayer
+    ],
+    target: 'map',
+    view
+  })
+</script>
 {% endblock %}
