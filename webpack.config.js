@@ -21,7 +21,8 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '../'
+              publicPath: '../',
+              esModule: false
             }
           },
           'css-loader',
@@ -58,7 +59,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/bundle.[hash].js',
+    filename: 'js/bundle.[fullhash].js',
     path: path.resolve(__dirname, 'app/dist')
   },
   plugins: [
@@ -69,7 +70,7 @@ module.exports = {
       template: 'app/views/_layout.njk'
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/application.[hash].css'
+      filename: 'css/application.[fullhash].css'
     })
   ]
 }
