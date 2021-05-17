@@ -8,18 +8,23 @@ const isDev = process.env.NODE_ENV === 'development' || process.env.NODE_ENV ===
 console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
-  entry: './app/frontend/index.js',
+  entry: {
+    core: './app/frontend/css/index.js',
+    cookies: './app/frontend/js/cookies.js',
+    map: './app/frontend/js/map.js'
+  },
   mode: isDev ? 'development' : 'production',
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(?:s[ac]|c)ss$/i,
         use: [
           'style-loader',
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '../'
+              publicPath: '../',
+              esModule: false
             }
           },
           'css-loader',
@@ -56,18 +61,32 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/bundle.[hash].js',
-    path: path.resolve(__dirname, 'app/dist')
+    filename: 'js/[name].[fullhash].js',
+    path: path.resolve(__dirname, 'app/dist'),
+    libraryTarget: '[name]'
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: '../views/layout.njk',
-      template: 'app/views/_layout.njk'
+      filename: '../views/_layout.njk',
+      template: 'app/views/_layout.template.njk',
+      chunks: ['core']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/cookies/_cookie-banner.njk',
+      template: 'app/views/cookies/_cookie-banner.template.njk',
+      chunks: ['cookies']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/map.njk',
+      template: 'app/views/map.template.njk',
+      chunks: ['map']
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/application.[hash].css'
+      filename: 'css/[name].[fullhash].css'
     })
   ]
 }
