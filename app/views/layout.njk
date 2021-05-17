@@ -1,68 +1,59 @@
-{% extends "govuk/template.njk" %}
-
-{% block head %}
-  {% if cookiesPolicy and cookiesPolicy.analytics %}
-    {% include "./tag-manager/head-content.njk" %}
-  {% endif %}
-  <!--[if !IE 8]><!-->
+Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module not found: Error: Can't resolve '/home/node/app/views/_map.njk' in '/ho  me/node'
+  ModuleNotFoundError: Module not found: Error: Can't resolve '/home/node/app/vi  ews/_map.njk' in '/home/node'
   
-  <link href="/static/css/application.fa0cba3edfaa18633466.css" rel="stylesheet">
+  - Compilation.js:1765 
+    [node]/[webpack]/lib/Compilation.js:1765:28
   
-  <!--<![endif]-->
-  {# For Internet Explorer 8, you need to compile specific stylesheet #}
-  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
-  <!--[if IE 8]>
-    <link href="{{ govukAssetPath }}/govuk-frontend/govuk/all-ie8.css" rel="stylesheet" />
-  <![endif]-->
-
-  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
-  <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
-  <![endif]-->
-{% endblock %}
-
-{% block header %}
-  {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: "/"
-  }) }}
-{% endblock %}
-
-{% block bodyStart %}
-  {% if cookiesPolicy and not cookiesPolicy.confirmed %}
-    {% include "./cookies/cookie-banner.njk" %}
-  {% endif %}
-
-  {% if cookiesPolicy and cookiesPolicy.analytics %}
-    {% include "./tag-manager/body-content.njk" %}
-  {% endif %}
-{% endblock %}
-
-{% block pageTitle %}
-  {{ pageTitle }}
-{% endblock %}
-
-{% block content %}
-{% endblock %}
-
-{% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: "Cookies"
-        }
-      ]
-    }
-  }) }}
-{% endblock %}
-
-{% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-
-  <script src="/static/js/bundle.fa0cba3edfaa18633466.js"></script>
-
-{% endblock %}
+  - NormalModuleFactory.js:730 
+    [node]/[webpack]/lib/NormalModuleFactory.js:730:13
+  
+  
+  - NormalModuleFactory.js:273 
+    [node]/[webpack]/lib/NormalModuleFactory.js:273:22
+  
+  
+  - NormalModuleFactory.js:402 
+    [node]/[webpack]/lib/NormalModuleFactory.js:402:22
+  
+  - NormalModuleFactory.js:117 
+    [node]/[webpack]/lib/NormalModuleFactory.js:117:11
+  
+  - NormalModuleFactory.js:646 
+    [node]/[webpack]/lib/NormalModuleFactory.js:646:24
+  
+  - NormalModuleFactory.js:800 
+    [node]/[webpack]/lib/NormalModuleFactory.js:800:8
+  
+  - NormalModuleFactory.js:920 
+    [node]/[webpack]/lib/NormalModuleFactory.js:920:5
+  
+  - child-compiler.js:169 
+    [node]/[html-webpack-plugin]/lib/child-compiler.js:169:18
+  
+  - Compiler.js:536 
+    [node]/[webpack]/lib/Compiler.js:536:11
+  
+  - Compiler.js:1103 
+    [node]/[webpack]/lib/Compiler.js:1103:17
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [node]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:1099 
+    [node]/[webpack]/lib/Compiler.js:1099:33
+  
+  - Compilation.js:2526 
+    [node]/[webpack]/lib/Compilation.js:2526:11
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [node]/[tapable]/lib/Hook.js:18:14
+  
+  - Compilation.js:2519 
+    [node]/[webpack]/lib/Compilation.js:2519:38
+  
+</pre>

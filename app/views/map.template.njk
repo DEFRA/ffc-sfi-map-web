@@ -6,9 +6,9 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block beforeContent %}
-  
-    <link href="/static/css/map.7021add7924bcda6a318.css" rel="stylesheet">
-  
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
   {{ govukBreadcrumbs({
     items: [
       {
@@ -36,7 +36,7 @@
 <script>
   const parcels = {{ parcels | dump | safe }}
 </script>
-
-  <script src="/static/js/map.7021add7924bcda6a318.js"></script>
-
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
 {% endblock %}
