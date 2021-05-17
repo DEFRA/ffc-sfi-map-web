@@ -62,7 +62,8 @@ module.exports = {
   },
   output: {
     filename: 'js/[name].[fullhash].js',
-    path: path.resolve(__dirname, 'app/dist')
+    path: path.resolve(__dirname, 'app/dist'),
+    libraryTarget: '[name]'
   },
   plugins: [
     new CleanWebpackPlugin(),

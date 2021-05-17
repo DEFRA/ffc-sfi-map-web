@@ -22,21 +22,23 @@ const styleFunction = function (feature) {
   return styles[feature.getGeometry().getType()]
 }
 
-const features = new GeoJSON().readFeatures(parcels) // eslint-disable-line no-undef
-const parcelSource = new VectorSource({ features })
-const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-const baseLayer = new TileLayer({ source: new OSM() })
-const view = new View({
-  center: [-0.466925, 53.956291],
-  zoom: 14,
-  projection: 'EPSG:4326'
-})
+export function displayMap (parcels) {
+  const features = new GeoJSON().readFeatures(parcels)
+  const parcelSource = new VectorSource({ features })
+  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
+  const baseLayer = new TileLayer({ source: new OSM() })
+  const view = new View({
+    center: [-0.466925, 53.956291],
+    zoom: 14,
+    projection: 'EPSG:4326'
+  })
 
-const map = new Map({ // eslint-disable-line no-unused-vars
-  layers: [
-    baseLayer,
-    parcelLayer
-  ],
-  target: 'map',
-  view
-})
+  const map = new Map({ // eslint-disable-line no-unused-vars
+    layers: [
+      baseLayer,
+      parcelLayer
+    ],
+    target: 'map',
+    view
+  })
+}

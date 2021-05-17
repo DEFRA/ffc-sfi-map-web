@@ -33,10 +33,11 @@
     <div id="map" class="map"></div>
   </div>
 </div>
-<script>
-  const parcels = {{ parcels | dump | safe }}
-</script>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
   <script src="<%= file.replace('../dist/', '/static/') %>"></script>
 <% }) %>
+<script>
+  const parcels = {{ parcels | dump | safe }}
+  map.displayMap(parcels)
+</script>
 {% endblock %}
