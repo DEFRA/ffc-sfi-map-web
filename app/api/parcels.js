@@ -22,7 +22,8 @@ const getParcelsBySBI = async (sbi) => {
 
 const getParcelsById = async (sbi, parcelId) => {
   const { parcels } = await getParcelsBySBI(sbi)
-  parcels.features = parcels.features.find(x => x.properties.id === parcelId)
+  const test = parcels.features.filter(x => x.properties.id === parcelId)
+  console.log(parcels.features[0].properties.id)
   const centroid = turf.centroid(parcels)
   const center = centroid.geometry.coordinates
   return {
