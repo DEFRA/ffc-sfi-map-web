@@ -98,6 +98,6 @@ export function displayMap (sbi, parcels, coordinates) {
   map.addInteraction(selectPointerMove)
 
   selectClick.on('select', function (e) {
-    window.location.href = `/parcel?sbi=${sbi}&parcelId=${e.selected[0].values_.id}`
+    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}`
   })
 }
