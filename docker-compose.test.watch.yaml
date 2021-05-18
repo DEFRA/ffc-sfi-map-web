@@ -4,6 +4,3 @@ services:
   ffc-sfi-map-web:
     command: >
       sh -c "npm run test:watch"
-    volumes:
-      - ./app/:/home/node/app/
-      - ./test/:/home/node/test/
