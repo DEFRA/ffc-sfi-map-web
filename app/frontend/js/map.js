@@ -21,7 +21,7 @@ const styles = {
     text: new Text({
       font: '6px Verdana',
       fill: new Fill({ color: 'white' }),
-      stroke: new Stroke({ color: 'black', width: 0.5 }),
+      stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
 }
