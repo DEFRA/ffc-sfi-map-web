@@ -27,7 +27,6 @@ const styles = {
 }
 
 const styleFunction = (feature) => {
-  console.log(feature)
   const label = `${feature.get('sheet_id')}-${feature.get('parcel_id')}`
   styles.Polygon.getText().setText(label)
   return styles[feature.getGeometry().getType()]
