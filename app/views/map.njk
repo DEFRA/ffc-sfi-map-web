@@ -9,7 +9,7 @@
 
 {% block beforeContent %}
   
-    <link href="/static/css/map.65e8af57824032667872.css" rel="stylesheet">
+    <link href="/static/css/map.c19afdf52d0a593e52c6.css" rel="stylesheet">
   
   {{ govukBreadcrumbs({
     items: [
@@ -35,15 +35,15 @@
     <div id="map" class="map"></div>
 
     {{ govukTable({
-  caption: "Dates and amounts",
+  caption: "Parcel Data",
   captionClasses: "govuk-table__caption--m",
   firstCellIsHeader: true,
   head: [
     {
-      text: "Date"
+      text: "Parcel"
     },
     {
-      text: "Amount"
+      text: "Description"
     }
   ],
   rows: [
@@ -54,7 +54,8 @@
 }) }}
 
 
- {{JSON.stringify(features)}}
+ {{featuresPI}}-{{featuresSI}}
+ {{FeaturesD}}
 
 
 
@@ -64,7 +65,7 @@
   </div>
 </div>
 
-  <script src="/static/js/map.65e8af57824032667872.js"></script>
+  <script src="/static/js/map.c19afdf52d0a593e52c6.js"></script>
 
 <script>
   const parcels = {{ parcels | dump | safe }}

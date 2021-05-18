@@ -35,15 +35,15 @@
     <div id="map" class="map"></div>
 
     {{ govukTable({
-  caption: "Dates and amounts",
+  caption: "Parcel Data",
   captionClasses: "govuk-table__caption--m",
   firstCellIsHeader: true,
   head: [
     {
-      text: "Date"
+      text: "Parcel"
     },
     {
-      text: "Amount"
+      text: "Description"
     }
   ],
   rows: [
@@ -54,7 +54,8 @@
 }) }}
 
 
- {{JSON.stringify(features)}}
+ {{featuresPI}}-{{featuresSI}}
+ {{FeaturesD}}
 
 
 
