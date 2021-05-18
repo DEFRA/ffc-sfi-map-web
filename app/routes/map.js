@@ -1,4 +1,5 @@
 const { getParcels } = require('../api')
+const turf = require('@turf/turf')
 
 module.exports = {
   method: 'GET',
@@ -7,7 +8,11 @@ module.exports = {
     handler: async (request, h) => {
       const sbi = request.query.sbi
       const parcels = await getParcels(sbi)
-      return h.view('map', { sbi, parcels })
+
+      var centroid = turf.centroid(parcels)
+      const center = centroid.geometry.coordinates
+
+      return h.view('map', { sbi, parcels, center })
     }
   }
 }

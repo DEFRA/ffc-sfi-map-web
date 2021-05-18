@@ -22,14 +22,14 @@ const styleFunction = function (feature) {
   return styles[feature.getGeometry().getType()]
 }
 
-export function displayMap (parcels) {
+export function displayMap (parcels, center) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
   const baseLayer = new TileLayer({ source: new OSM() })
   const view = new View({
-    center: [-0.466925, 53.956291],
-    zoom: 14,
+    center: center,
+    zoom: 13,
     projection: 'EPSG:4326'
   })
 
