@@ -6,10 +6,9 @@
   {% endif %}
   <!--[if !IE 8]><!-->
   
-  <link href="/static/css/application.587aaa9620a253bc8980.css" rel="stylesheet">
+  <link href="/static/css/core.c52a655836dcefd85765.css" rel="stylesheet">
   
   <!--<![endif]-->
-
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
   {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
   <!--[if IE 8]>
@@ -33,7 +32,7 @@
 
 {% block bodyStart %}
   {% if cookiesPolicy and not cookiesPolicy.confirmed %}
-    {% include "./cookies/cookie-banner.njk" %}
+    {% include "./cookies/_cookie-banner.njk" %}
   {% endif %}
 
   {% if cookiesPolicy and cookiesPolicy.analytics %}
@@ -64,6 +63,6 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
 
-  <script src="/static/js/bundle.587aaa9620a253bc8980.js"></script>
+  <script src="/static/js/core.c52a655836dcefd85765.js"></script>
 
 {% endblock %}

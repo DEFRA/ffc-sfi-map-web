@@ -5,9 +5,9 @@
     {% include "./tag-manager/head-content.njk" %}
   {% endif %}
   <!--[if !IE 8]><!-->
-  
-  <link href="/static/css/core.37a77886c55809cbc3f3.css" rel="stylesheet">
-  
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+  <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
   <!--<![endif]-->
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
   {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
@@ -62,7 +62,7 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-
-  <script src="/static/js/core.37a77886c55809cbc3f3.js"></script>
-
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
 {% endblock %}

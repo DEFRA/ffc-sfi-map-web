@@ -13,7 +13,8 @@ function ViewModel (value, error) {
     name: 'sbi',
     inputmode: 'numeric',
     pattern: '[0-9]*',
-    spellcheck: false
+    spellcheck: false,
+    autocomplete: 'off'
   }
 
   if (error) {

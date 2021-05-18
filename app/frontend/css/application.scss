@@ -79,3 +79,8 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
     @extend %govuk-section-break--xl;
   }
 }
+
+.map {
+  height: 500px;
+  width: 100%;
+}
