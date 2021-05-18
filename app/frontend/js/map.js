@@ -2,7 +2,7 @@ import 'ol/ol.css'
 import GeoJSON from 'ol/format/GeoJSON'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import { Fill, Stroke, Style } from 'ol/style'
+import { Fill, Stroke, Style, Text } from 'ol/style'
 import { BingMaps, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { get as getProjection } from 'ol/proj'
@@ -17,11 +17,18 @@ const styles = {
     }),
     fill: new Fill({
       color: 'rgba(249, 6, 44, 0.1)'
+    }),
+    text: new Text({
+      font: '6px Verdana',
+      fill: new Fill({ color: 'white' }),
+      stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
 }
 
 const styleFunction = (feature) => {
+  const label = `${feature.get('sheet_id')}-${feature.get('parcel_id')}`
+  styles.Polygon.getText().setText(label)
   return styles[feature.getGeometry().getType()]
 }
 
