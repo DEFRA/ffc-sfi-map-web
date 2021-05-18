@@ -55,6 +55,7 @@ const createprojection = () => {
 }
 
 export function displayMap (parcels, coordinates) {
+  console.log(parcels)
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })

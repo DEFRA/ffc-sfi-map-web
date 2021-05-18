@@ -7,6 +7,7 @@ const getParcels = async (sbi) => {
   const parcels = await base.get(url)
   const centroid = turf.centroid(parcels)
   const center = centroid.geometry.coordinates
+  console.log(parcels.features[0].properties.sbi)
   return {
     parcels,
     center

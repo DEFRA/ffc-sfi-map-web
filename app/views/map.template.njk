@@ -4,6 +4,8 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
 
 {% block beforeContent %}
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
@@ -31,6 +33,34 @@
       Your land parcels
     </h1>
     <div id="map" class="map"></div>
+
+    {{ govukTable({
+  caption: "Dates and amounts",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Date"
+    },
+    {
+      text: "Amount"
+    }
+  ],
+  rows: [
+    
+     
+    
+  ]
+}) }}
+
+
+ {{JSON.stringify(features)}}
+
+
+
+
+
+
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
