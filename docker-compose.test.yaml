@@ -10,8 +10,7 @@ services:
     image: ffc-sfi-map-web-development
     container_name: ffc-sfi-map-web-test
     command: npm run test
-    volumes:
-      - ./app/:/home/node/app/
+    volumes:      
       - ./test/:/home/node/test/
       - ./test-output/:/home/node/test-output/
       - ./jest.config.js:/home/node/jest.config.js
