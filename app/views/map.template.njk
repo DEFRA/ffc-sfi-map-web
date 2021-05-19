@@ -30,6 +30,18 @@
       <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
       Your land parcels
     </h1>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="sort">
+        Toogle view
+      </label>
+      <select class="govuk-select" id="layer-select" name="layer-select">
+        <option value="Aerial">Aerial</option>
+        <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
+        <option value="RoadOnDemand">Road</option>
+        <option value="CanvasDark">Road dark</option>
+        <option value="OrdnanceSurvey">Ordnance Survey</option>
+      </select>
+    </div>
     <div id="map" class="map"></div>
   </div>
 </div>
@@ -39,6 +51,28 @@
 <script>
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
-  map.displayMap(parcels, center)
+
+  const layers = []
+
+  const mapStyles = [
+    'RoadOnDemand',
+    'Aerial',
+    'AerialWithLabelsOnDemand',
+    'CanvasDark',
+    'OrdnanceSurvey']
+
+  map.displayMap(parcels, center, layers, mapStyles)
+
+  var select = document.getElementById('layer-select')
+
+  function onChange () {
+    console.log(layers)
+  var style = select.value
+  for (var i = 0, ii = layers.length-1; i < ii; ++i) {
+    layers[i].setVisible(mapStyles[i] === style)
+  }
+}
+select.addEventListener('change', onChange)
+onChange()
 </script>
 {% endblock %}

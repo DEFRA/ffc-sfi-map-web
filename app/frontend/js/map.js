@@ -35,7 +35,7 @@ const styleFunction = (feature) => {
 const createBingMapsSource = () => {
   return new BingMaps({
     key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
-    imagerySet: 'AerialWithLabelsOnDemand',
+    imagerySet: 'RoadOnDemand',
     culture: 'en-GB',
     maxZoom: 19
   })
@@ -54,24 +54,39 @@ const createprojection = () => {
   return getProjection('EPSG:27700')
 }
 
-export function displayMap (parcels, coordinates) {
+export function displayMap (parcels, coordinates, layers, mapStyles) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
-  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-  const baseLayer = new TileLayer({ preload: Infinity, source: createBingMapsSource() })
+  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction, visible: true })
+  // const baseLayer = new TileLayer({ preload: Infinity, source: createBingMapsSource() })
   const projection = createprojection()
+
+  for (let i = 0, ii = mapStyles.length; i < ii; ++i) {
+    layers.push(
+      new TileLayer({
+        visible: false,
+        preload: Infinity,
+        source: new BingMaps({
+          key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
+          imagerySet: mapStyles[i]
+          // use maxZoom 19 to see stretched tiles instead of the BingMaps
+          // "no photos at this zoom level" tiles
+          // maxZoom: 19
+        })
+      })
+    )
+  }
+
+  layers.push(parcelLayer)
 
   const view = new View({
     center: coordinates,
-    zoom: 14,
+    zoom: 13,
     projection
   })
 
   const map = new Map({ // eslint-disable-line no-unused-vars
-    layers: [
-      baseLayer,
-      parcelLayer
-    ],
+    layers: layers,
     target: 'map',
     view
   })
