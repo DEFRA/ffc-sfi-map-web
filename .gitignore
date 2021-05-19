@@ -14,3 +14,8 @@ helm/**/*.lock
 .env
 test/acceptance/html-reports
 dist/
+# Generated views
+_layout.njk
+_cookie-banner.njk
+map.njk
+parcel.njk

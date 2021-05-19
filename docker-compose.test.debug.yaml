@@ -4,3 +4,5 @@ services:
     command: npm run test:debug
     ports:
       - "9229:9229"
+    volumes:
+      - ./app/:/home/node/app/

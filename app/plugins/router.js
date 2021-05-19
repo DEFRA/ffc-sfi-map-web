@@ -5,7 +5,8 @@ const routes = [].concat(
   require('../routes/home'),
   require('../routes/static'),
   require('../routes/search'),
-  require('../routes/map')
+  require('../routes/map'),
+  require('../routes/parcel')
 )
 
 module.exports = {

@@ -6,6 +6,8 @@ import { Fill, Stroke, Style, Text } from 'ol/style'
 import { BingMaps, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { get as getProjection } from 'ol/proj'
+import Select from 'ol/interaction/Select'
+import { click, pointerMove } from 'ol/events/condition'
 import proj4 from 'proj4'
 import { register } from 'ol/proj/proj4'
 
@@ -41,7 +43,7 @@ const createBingMapsSource = () => {
   })
 }
 
-const createprojection = () => {
+const createProjection = () => {
   proj4.defs(
     'EPSG:27700',
     '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
@@ -54,12 +56,12 @@ const createprojection = () => {
   return getProjection('EPSG:27700')
 }
 
-export function displayMap (parcels, coordinates) {
+export function displayMap (sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
   const baseLayer = new TileLayer({ preload: Infinity, source: createBingMapsSource() })
-  const projection = createprojection()
+  const projection = createProjection()
 
   const view = new View({
     center: coordinates,
@@ -67,12 +69,35 @@ export function displayMap (parcels, coordinates) {
     projection
   })
 
-  const map = new Map({ // eslint-disable-line no-unused-vars
+  const map = new Map({
     layers: [
       baseLayer,
       parcelLayer
     ],
     target: 'map',
     view
+  })
+
+  const selectClick = new Select({
+    condition: click
+  })
+  const selectPointerMove = new Select({
+    condition: pointerMove,
+    style: new Style({
+      stroke: new Stroke({
+        color: 'blue',
+        width: 3
+      }),
+      fill: new Fill({
+        color: 'rgba(0, 0, 255, 0.1)'
+      })
+    })
+  })
+
+  map.addInteraction(selectClick)
+  map.addInteraction(selectPointerMove)
+
+  selectClick.on('select', function (e) {
+    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}`
   })
 }
