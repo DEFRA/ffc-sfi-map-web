@@ -81,7 +81,6 @@ export function displayMap (sbi, parcels, coordinates) {
   const selectClick = new Select({
     condition: click
   })
-
   const selectPointerMove = new Select({
     condition: pointerMove,
     style: new Style({
