@@ -30,8 +30,17 @@
       <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
       Your land parcels
     </h1>
-    <div id="map" class="map">
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="sort">Change view</label>
+      <select class="govuk-select" id="layer-select" name="layer-select">
+        <option value="Aerial">Aerial</option>
+        <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
+        <option value="RoadOnDemand">Road</option>
+        <option value="CanvasDark">Road dark</option>
+        <option value="OrdnanceSurvey">Ordnance Survey</option>
+      </select>
     </div>
+    <div id="map" class="map"></div>
     <table id="parcels" class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -63,6 +72,8 @@
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
   const sbi = {{ sbi }}
+
   map.displayMap(sbi, parcels, center)
+
 </script>
 {% endblock %}
