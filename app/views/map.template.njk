@@ -41,6 +41,30 @@
       </select>
     </div>
     <div id="map" class="map"></div>
+    <div id="map" class="map">
+    </div>
+    <table id="parcels" class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Parcel Number</th>
+          <th scope="col" class="govuk-table__header">Total Area</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for feature in parcels.features %}
+        <tr class="govuk-table__row" id="{{feature.id}}">
+          <th scope="row" class="govuk-table__header">
+            <a href="/parcel?sbi={{feature.properties.sbi}}&sheetId={{ feature.properties.sheet_id }}&parcelId={{ feature.properties.parcel_id }}">
+              {{ feature.properties.sheet_id }} {{ feature.properties.parcel_id }}
+            </a>
+          </th>
+          <td class="govuk-table__cell">
+            {{ feature.properties.area_ha | round(4) }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
