@@ -72,7 +72,21 @@
     </table>
   </div>
   <div class="govuk-grid-column-one-half">
-    <div id="map" class="map"></div>
+    <table class="govuk-table">
+      <tbody class="govuk-table__body">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="sort">Change view</label>
+          <select class="govuk-select" id="layer-select" name="layer-select">
+            <option value="Aerial">Aerial</option>
+            <option value="AerialWithLabelsOnDemand">Aerial with labels</option>
+            <option value="RoadOnDemand">Road</option>
+            <option value="CanvasDark">Road dark</option>
+            <option value="OrdnanceSurvey">Ordnance Survey</option>
+          </select>
+        </div>
+        <div id="map" class="map"></div>
+      </tbody>  
+    </table>
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
