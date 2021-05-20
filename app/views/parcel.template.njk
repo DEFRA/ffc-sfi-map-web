@@ -82,6 +82,7 @@
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
   const sbi = {{ sbi }}
-  map.displayMap(sbi, parcels, center)
+  const apiKey = {{ apiKey | dump | safe }}
+  map.displayMap(apiKey, sbi, parcels, center)
 </script>
 {% endblock %}

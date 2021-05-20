@@ -1,4 +1,5 @@
 const { getParcels } = require('../api')
+const config = require('../config')
 
 module.exports = {
   method: 'GET',
@@ -6,8 +7,9 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       const sbi = request.query.sbi
+      const apiKey = config.osMapApiKey
       const { parcels, center } = await getParcels(sbi)
-      return h.view('map', { sbi, parcels, center })
+      return h.view('map', { apiKey, sbi, parcels, center })
     }
   }
 }

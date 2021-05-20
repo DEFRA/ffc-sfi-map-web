@@ -10,3 +10,4 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfi-map-web-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      OS_MAP_API_KEY: ${OS_MAP_API_KEY}

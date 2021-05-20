@@ -5,7 +5,6 @@ import View from 'ol/View'
 import { Fill, Stroke, Style, Text } from 'ol/style'
 import { XYZ, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
-import { get as getProjection } from 'ol/proj'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import proj4 from 'proj4'
@@ -45,13 +44,13 @@ register(proj4)
 
 const createOsMapsSource = () => {
   return new XYZ({
-    url: 'https://api.os.uk/maps/raster/v1/zxy/Road_27700/{z}/{x}/{y}.png?key=AAamOVjJkBGH2if4Fn1xFseVWwja21JH',
+    url: `https://api.os.uk/maps/raster/v1/zxy/Road_27700/{z}/{x}/{y}.png?key=${apiKey}`,
     projection: 'EPSG:27700',
     tileGrid: tilegrid
   })
 }
 
-export function displayMap (sbi, parcels, coordinates) {
+export function displayMap (apiKey, sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
