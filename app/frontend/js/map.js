@@ -29,18 +29,9 @@ const styles = {
 }
 
 const styleFunction = (feature) => {
-  const label = `${feature.get('sheet_id')}-${feature.get('parcel_id')}`
+  const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
   styles.Polygon.getText().setText(label)
   return styles[feature.getGeometry().getType()]
-}
-
-const createBingMapsSource = () => {
-  return new BingMaps({
-    key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
-    imagerySet: 'AerialWithLabelsOnDemand',
-    culture: 'en-GB',
-    maxZoom: 19
-  })
 }
 
 const createProjection = () => {
@@ -59,21 +50,43 @@ const createProjection = () => {
 export function displayMap (sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
-  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-  const baseLayer = new TileLayer({ preload: Infinity, source: createBingMapsSource() })
+  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction, visible: true })
   const projection = createProjection()
+
+  const layers = []
+
+  const mapStyles = [
+    'RoadOnDemand',
+    'Aerial',
+    'AerialWithLabelsOnDemand',
+    'CanvasDark',
+    'OrdnanceSurvey']
+
+  const mapStyleLayers = mapStyles.length
+
+  for (let i = 0; i < mapStyleLayers; ++i) {
+    layers.push(
+      new TileLayer({
+        visible: false,
+        preload: Infinity,
+        source: new BingMaps({
+          key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
+          imagerySet: mapStyles[i]
+        })
+      })
+    )
+  }
+
+  layers.push(parcelLayer)
 
   const view = new View({
     center: coordinates,
-    zoom: 14,
+    zoom: 13,
     projection
   })
 
-  const map = new Map({
-    layers: [
-      baseLayer,
-      parcelLayer
-    ],
+  const map = new Map({ // eslint-disable-line no-unused-vars
+    layers: layers,
     target: 'map',
     view
   })
@@ -98,6 +111,43 @@ export function displayMap (sbi, parcels, coordinates) {
   map.addInteraction(selectPointerMove)
 
   selectClick.on('select', function (e) {
-    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}`
+    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}&mapStyle=${select.value}`
   })
+
+  const select = document.getElementById('layer-select')
+
+  function onChange () {
+    const style = select.value
+    const totalLayers = layers.length - 1
+
+    for (let i = 0; i < totalLayers; ++i) {
+      layers[i].setVisible(mapStyles[i] === style)
+    }
+  }
+
+  select.addEventListener('change', onChange)
+  onChange()
+  var highlightStyle = new Style({
+    fill: new Fill({
+      color: 'rgba(0, 0, 255, 0.1)'
+    }),
+    stroke: new Stroke({
+      color: 'blue',
+      width: 3
+    })
+  })
+
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseover', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(highlightStyle)
+    }
+  }))
+
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(styles.Polygon)
+    }
+  }))
 }

@@ -6,8 +6,9 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       const sbi = request.query.sbi
+      const mapStyle = request.query.mapStyle
       const { parcels, center } = await getParcels(sbi)
-      return h.view('map', { sbi, parcels, center })
+      return h.view('map', { sbi, parcels, center, mapStyle })
     }
   }
 }
