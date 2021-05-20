@@ -14,9 +14,8 @@ const getParcels = async (sbi) => {
 }
 
 const getParcelCovers = async (sbi, sheetId, parcelId) => {
-  const url = `${config.publicApi}LandCovers/MapServer/0/query?where=SBI=${sbi}&outFields=*&outSR=27700&f=geojson`
+  const url = `${config.publicApi}LandCovers/MapServer/0/query?where=SBI=${sbi}+AND+sheet_id='${sheetId}'+AND+parcel_id='${parcelId}'&outFields=*&outSR=27700&f=geojson`
   const parcels = await base.get(url)
-  parcels.features = parcels.features.filter(x => x.properties.sheet_id === sheetId && x.properties.parcel_id === parcelId)
   const centroid = turf.centroid(parcels)
   const center = centroid.geometry.coordinates
   return {
