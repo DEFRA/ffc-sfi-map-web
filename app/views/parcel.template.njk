@@ -17,7 +17,7 @@
         <a class="govuk-breadcrumbs__link" href="/search">Search</a>
       </li>
       <li class="govuk-breadcrumbs__list-item">
-        <a id="myLand" class="govuk-breadcrumbs__link" href="/map?sbi={{sbi}}&mapStyle={{mapStyle}}">My land</a>
+        <a id="myLand" class="govuk-breadcrumbs__link" href="">My land</a>
       </li>
     </ol>
   </div>
@@ -91,17 +91,21 @@
   <script src="<%= file.replace('../dist/', '/static/') %>"></script>
 <% }) %>
 <script>
-  const myLandHref = '/map?sbi={{sbi}}&mapStyle='
+  const myLandBreadcrumbHref = '/map?sbi={{sbi}}&mapStyle='
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
   const sbi = {{ sbi }}
   const apiKey = {{ apiKey | dump | safe }}
   const mapStyle = {{ mapStyle | dump | safe }}
 
-  document.getElementById("layer-select").value = mapStyle
+  const layerSelect = document.getElementById("layer-select")
+  const myLandBreadcrumbLink = document.getElementById("myLand")
 
-  document.getElementById("layer-select").addEventListener("change", (e) => {
-    document.getElementById("myLand").href = `${myLandHref}${e.target.value}`
+  layerSelect.value = mapStyle
+  myLandBreadcrumbLink.href = `${myLandBreadcrumbHref}${mapStyle}`
+
+  layerSelect.addEventListener("change", (e) => {
+    myLandBreadcrumbLink.href = `${myLandBreadcrumbHref}${e.target.value}`
   })
   
   map.displayMap(apiKey, sbi, parcels, center)
