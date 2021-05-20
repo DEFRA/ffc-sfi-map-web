@@ -3,13 +3,14 @@ import GeoJSON from 'ol/format/GeoJSON'
 import Map from 'ol/Map'
 import View from 'ol/View'
 import { Fill, Stroke, Style, Text } from 'ol/style'
-import { BingMaps, Vector as VectorSource } from 'ol/source'
+import { XYZ, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { get as getProjection } from 'ol/proj'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import proj4 from 'proj4'
 import { register } from 'ol/proj/proj4'
+import TileGrid from 'ol/tilegrid/TileGrid'
 
 const styles = {
   Polygon: new Style({
@@ -34,39 +35,34 @@ const styleFunction = (feature) => {
   return styles[feature.getGeometry().getType()]
 }
 
-const createBingMapsSource = () => {
-  return new BingMaps({
-    key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
-    imagerySet: 'AerialWithLabelsOnDemand',
-    culture: 'en-GB',
-    maxZoom: 19
+const tilegrid = new TileGrid({
+  resolutions: [896.0, 448.0, 224.0, 112.0, 56.0, 28.0, 14.0, 7.0, 3.5, 1.75],
+  origin: [-238375.0, 1376256.0]
+})
+
+proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs')
+register(proj4)
+
+const createOsMapsSource = () => {
+  return new XYZ({
+    url: 'https://api.os.uk/maps/raster/v1/zxy/Road_27700/{z}/{x}/{y}.png?key=AAamOVjJkBGH2if4Fn1xFseVWwja21JH',
+    projection: 'EPSG:27700',
+    tileGrid: tilegrid
   })
-}
-
-const createProjection = () => {
-  proj4.defs(
-    'EPSG:27700',
-    '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
-      '+x_0=400000 +y_0=-100000 +ellps=airy ' +
-      '+towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 ' +
-      '+units=m +no_defs'
-  )
-
-  register(proj4)
-  return getProjection('EPSG:27700')
 }
 
 export function displayMap (sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-  const baseLayer = new TileLayer({ preload: Infinity, source: createBingMapsSource() })
-  const projection = createProjection()
+  const baseLayer = new TileLayer({ preload: Infinity, source: createOsMapsSource() })
 
   const view = new View({
     center: coordinates,
-    zoom: 14,
-    projection
+    zoom: 7,
+    projection: 'EPSG:27700',
+    extent: [-238375.0, 0.0, 900000.0, 1376256.0],
+    resolutions: tilegrid.getResolutions()
   })
 
   const map = new Map({
@@ -81,6 +77,7 @@ export function displayMap (sbi, parcels, coordinates) {
   const selectClick = new Select({
     condition: click
   })
+
   const selectPointerMove = new Select({
     condition: pointerMove,
     style: new Style({
