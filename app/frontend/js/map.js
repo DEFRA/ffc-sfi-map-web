@@ -29,7 +29,7 @@ const styles = {
 }
 
 const styleFunction = (feature) => {
-  const label = `${feature.get('sheet_id')}-${feature.get('parcel_id')}`
+  const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
   styles.Polygon.getText().setText(label)
   return styles[feature.getGeometry().getType()]
 }
@@ -100,4 +100,28 @@ export function displayMap (sbi, parcels, coordinates) {
   selectClick.on('select', function (e) {
     window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}`
   })
+
+  var highlightStyle = new Style({
+    fill: new Fill({
+      color: 'rgba(0, 0, 255, 0.1)'
+    }),
+    stroke: new Stroke({
+      color: 'blue',
+      width: 3
+    })
+  })
+
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseover', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(highlightStyle)
+    }
+  }))
+
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(styles.Polygon)
+    }
+  }))
 }
