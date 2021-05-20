@@ -62,7 +62,9 @@ export function displayMap (sbi, parcels, coordinates) {
     'CanvasDark',
     'OrdnanceSurvey']
 
-  for (let i = 0, ii = mapStyles.length; i < ii; ++i) {
+  const mapStyleLayers = mapStyles.length
+
+  for (let i = 0; i < mapStyleLayers; ++i) {
     layers.push(
       new TileLayer({
         visible: false,
