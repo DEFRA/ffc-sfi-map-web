@@ -32,12 +32,6 @@
     </h1>
     <div id="map" class="map">
     </div>
-    <div class="govuk-form-group">
-      <label class="govuk-label" for="search">
-        Search Parcels
-      </label>
-      <input class="govuk-input" id="search" name="event-name" type="text" onkeyup="searchParcels()">
-    </div>
     <table id="parcels" class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -70,26 +64,5 @@
   const center = {{ center | dump | safe }}
   const sbi = {{ sbi }}
   map.displayMap(sbi, parcels, center)
-
-  const searchParcels = () => {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("search");
-    filter = input.value.toLowerCase();
-    table = document.getElementById("parcels");
-    tr = table.getElementsByTagName("tr");
-
-    for (i = 0; i < tr.length; i++) {
-      th = tr[i].getElementsByTagName("th")[0];
-      if (th) {
-        txtValue = th.textContent || th.innerText;
-        if (txtValue.toLowerCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
-
 </script>
 {% endblock %}
