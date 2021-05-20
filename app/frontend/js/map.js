@@ -47,11 +47,20 @@ const createProjection = () => {
   return getProjection('EPSG:27700')
 }
 
-export function displayMap (parcels, coordinates, layers, mapStyles) {
+export function displayMap (sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction, visible: true })
-  const projection = createprojection()
+  const projection = createProjection()
+
+  const layers = []
+
+  const mapStyles = [
+    'RoadOnDemand',
+    'Aerial',
+    'AerialWithLabelsOnDemand',
+    'CanvasDark',
+    'OrdnanceSurvey']
 
   for (let i = 0, ii = mapStyles.length; i < ii; ++i) {
     layers.push(
@@ -61,9 +70,6 @@ export function displayMap (parcels, coordinates, layers, mapStyles) {
         source: new BingMaps({
           key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
           imagerySet: mapStyles[i]
-          // use maxZoom 19 to see stretched tiles instead of the BingMaps
-          // "no photos at this zoom level" tiles
-          // maxZoom: 19
         })
       })
     )
@@ -103,6 +109,18 @@ export function displayMap (parcels, coordinates, layers, mapStyles) {
   map.addInteraction(selectPointerMove)
 
   selectClick.on('select', function (e) {
-    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}`
+    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}&mapStyle=${select.value}`
   })
+
+  var select = document.getElementById('layer-select')
+
+  function onChange () {
+    var style = select.value
+    for (var i = 0, ii = layers.length - 1; i < ii; ++i) {
+      layers[i].setVisible(mapStyles[i] === style)
+    }
+  }
+
+  select.addEventListener('change', onChange)
+  onChange()
 }

@@ -7,7 +7,7 @@
 
 {% block beforeContent %}
   
-    <link href="/static/css/map.ca3342e18a9bcf562ae9.css" rel="stylesheet">
+    <link href="/static/css/map.267e4ec8d759927dc03d.css" rel="stylesheet">
   
   {{ govukBreadcrumbs({
     items: [
@@ -31,9 +31,7 @@
       Your land parcels
     </h1>
     <div class="govuk-form-group">
-      <label class="govuk-label" for="sort">
-        Toogle view
-      </label>
+      <label class="govuk-label" for="sort">Change view</label>
       <select class="govuk-select" id="layer-select" name="layer-select">
         <option value="Aerial">Aerial</option>
         <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
@@ -46,33 +44,14 @@
   </div>
 </div>
 
-  <script src="/static/js/map.ca3342e18a9bcf562ae9.js"></script>
+  <script src="/static/js/map.267e4ec8d759927dc03d.js"></script>
 
 <script>
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
+  const sbi = {{ sbi }}
 
-  const layers = []
+  map.displayMap(sbi, parcels, center)
 
-  const mapStyles = [
-    'RoadOnDemand',
-    'Aerial',
-    'AerialWithLabelsOnDemand',
-    'CanvasDark',
-    'OrdnanceSurvey']
-
-  map.displayMap(parcels, center, layers, mapStyles)
-
-  var select = document.getElementById('layer-select')
-
-  function onChange () {
-    console.log(layers)
-  var style = select.value
-  for (var i = 0, ii = layers.length-1; i < ii; ++i) {
-    layers[i].setVisible(mapStyles[i] === style)
-  }
-}
-select.addEventListener('change', onChange)
-onChange()
 </script>
 {% endblock %}
