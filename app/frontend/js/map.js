@@ -112,11 +112,13 @@ export function displayMap (sbi, parcels, coordinates) {
     window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}&mapStyle=${select.value}`
   })
 
-  var select = document.getElementById('layer-select')
+  const select = document.getElementById('layer-select')
 
   function onChange () {
-    var style = select.value
-    for (var i = 0, ii = layers.length - 1; i < ii; ++i) {
+    const style = select.value
+    const totalLayers = layers.length - 1
+
+    for (let i = 0; i < totalLayers; ++i) {
       layers[i].setVisible(mapStyles[i] === style)
     }
   }

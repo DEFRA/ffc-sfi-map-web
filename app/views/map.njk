@@ -7,7 +7,7 @@
 
 {% block beforeContent %}
   
-    <link href="/static/css/map.bac4fb8e81a53ba4751f.css" rel="stylesheet">
+    <link href="/static/css/map.6306fe6cc263ad4da0c8.css" rel="stylesheet">
   
   {{ govukBreadcrumbs({
     items: [
@@ -41,8 +41,6 @@
       </select>
     </div>
     <div id="map" class="map"></div>
-    <div id="map" class="map">
-    </div>
     <table id="parcels" class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -68,7 +66,7 @@
   </div>
 </div>
 
-  <script src="/static/js/map.bac4fb8e81a53ba4751f.js"></script>
+  <script src="/static/js/map.6306fe6cc263ad4da0c8.js"></script>
 
 <script>
   const parcels = {{ parcels | dump | safe }}
