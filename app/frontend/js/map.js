@@ -4,7 +4,7 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import { Fill, Stroke, Style, Text } from 'ol/style'
 import { XYZ, Vector as VectorSource } from 'ol/source'
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
+import { Tile as TileLayer, Vector as VectorLayer, Group } from 'ol/layer'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import proj4 from 'proj4'
@@ -28,6 +28,16 @@ const styles = {
   })
 }
 
+var highlightStyle = new Style({
+  fill: new Fill({
+    color: 'rgba(0, 0, 255, 0.1)'
+  }),
+  stroke: new Stroke({
+    color: 'blue',
+    width: 3
+  })
+})
+
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
   styles.Polygon.getText().setText(label)
@@ -42,45 +52,63 @@ const tilegrid = new TileGrid({
 proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs')
 register(proj4)
 
-const createOsMapsSource = () => {
-  return new XYZ({
-    url: `https://api.os.uk/maps/raster/v1/zxy/Road_27700/{z}/{x}/{y}.png?key=${apiKey}`,
-    projection: 'EPSG:27700',
-    tileGrid: tilegrid
+const hightlightOnMouseOver = (parcelSource) => {
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseover', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(highlightStyle)
+    }
+  }))
+
+  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
+    if (e.id) {
+      const selectedFeature = parcelSource.getFeatureById(e.id)
+      selectedFeature.setStyle(styles.Polygon)
+    }
+  }))
+}
+
+const mapStyles = [
+  'Road_27700',
+  'Outdoor_27700',
+  'Light_27700']
+
+const buildMapLayers = (parcelSource, apiKey) => {
+  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
+
+  const layers = []
+
+  mapStyles.map((mapStyle) => {
+    layers.push(
+      new TileLayer({
+        title: 'Road',
+        type: 'base',
+        visible: false,
+        source: new XYZ({
+          url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyle}/{z}/{x}/{y}.png?key=${apiKey}`,
+          projection: 'EPSG:27700',
+          tileGrid: tilegrid
+        })
+      })
+    )
   })
+
+  layers.push(parcelLayer)
+
+  return layers
 }
 
 export function displayMap (apiKey, sbi, parcels, coordinates) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
-  const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
-  const baseLayer = new TileLayer({ preload: Infinity, source: createOsMapsSource() })
+  const layers = buildMapLayers(parcelSource, apiKey)
 
-  const layers = []
-
-  const mapStyles = [
-    'RoadOnDemand',
-    'Aerial',
-    'AerialWithLabelsOnDemand',
-    'CanvasDark',
-    'OrdnanceSurvey']
-
-  const mapStyleLayers = mapStyles.length
-
-  for (let i = 0; i < mapStyleLayers; ++i) {
-    layers.push(
-      new TileLayer({
-        visible: false,
-        preload: Infinity,
-        source: new BingMaps({
-          key: 'AvlstdycF2zG8HdPPAPv29mJrVMFi3ixiv9Tt4LiqR3Bt9QQNE9wqK02H3IeOzAp',
-          imagerySet: mapStyles[i]
-        })
-      })
-    )
-  }
-
-  layers.push(parcelLayer)
+  const layerGroup = [
+    new Group({
+      title: 'Base maps',
+      layers
+    })
+  ]
 
   const view = new View({
     center: coordinates,
@@ -91,7 +119,7 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
   })
 
   const map = new Map({ // eslint-disable-line no-unused-vars
-    layers: layers,
+    layers: layerGroup,
     target: 'map',
     view
   })
@@ -132,28 +160,8 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
   }
 
   select.addEventListener('change', onChange)
+
   onChange()
-  var highlightStyle = new Style({
-    fill: new Fill({
-      color: 'rgba(0, 0, 255, 0.1)'
-    }),
-    stroke: new Stroke({
-      color: 'blue',
-      width: 3
-    })
-  })
 
-  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseover', () => {
-    if (e.id) {
-      const selectedFeature = parcelSource.getFeatureById(e.id)
-      selectedFeature.setStyle(highlightStyle)
-    }
-  }))
-
-  document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
-    if (e.id) {
-      const selectedFeature = parcelSource.getFeatureById(e.id)
-      selectedFeature.setStyle(styles.Polygon)
-    }
-  }))
+  hightlightOnMouseOver(parcelSource)
 }

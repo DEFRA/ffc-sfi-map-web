@@ -6,10 +6,10 @@ module.exports = {
   path: '/parcel',
   options: {
     handler: async (request, h) => {
-      const { sbi, sheetId, parcelId } = request.query
+      const { sbi, sheetId, parcelId, mapStyle } = request.query
       const apiKey = config.osMapApiKey
       const { parcels, center, totalArea, covers } = await getParcelCovers(sbi, sheetId, parcelId)
-      return h.view('parcel', { apiKey, sbi, sheetId, parcelId, parcels, center, totalArea, covers })
+      return h.view('parcel', { apiKey, sbi, sheetId, parcelId, parcels, center, totalArea, covers, mapStyle })
     }
   }
 }
