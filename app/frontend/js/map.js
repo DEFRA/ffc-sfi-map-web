@@ -7,8 +7,6 @@ import { XYZ, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer, Group } from 'ol/layer'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
-import proj4 from 'proj4'
-import { register } from 'ol/proj/proj4'
 import TileGrid from 'ol/tilegrid/TileGrid'
 
 const styles = {
@@ -49,9 +47,6 @@ const tilegrid = new TileGrid({
   origin: [-238375.0, 1376256.0]
 })
 
-proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs')
-register(proj4)
-
 const hightlightOnMouseOver = (parcelSource) => {
   document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseover', () => {
     if (e.id) {
@@ -88,7 +83,6 @@ const buildMapLayers = (parcelSource, apiKey) => {
         visible: false,
         source: new XYZ({
           url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
-          projection: 'EPSG:27700',
           tileGrid: tilegrid
         })
       })
@@ -115,7 +109,6 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
   const view = new View({
     center: coordinates,
     zoom: 7,
-    projection: 'EPSG:27700',
     extent: [-238375.0, 0.0, 900000.0, 1376256.0],
     resolutions: tilegrid.getResolutions()
   })
