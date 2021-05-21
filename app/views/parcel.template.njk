@@ -72,9 +72,9 @@
     </table>
   </div>
   <div class="govuk-grid-column-one-half">
+    {% if apiKey !== '' %}
     <table class="govuk-table">
       <tbody class="govuk-table__body">
-        {% if apiKey !== '' %}
           <div class="govuk-form-group">
             <label class="govuk-label" for="sort">Change view</label>
             <select class="govuk-select" id="layer-select" name="layer-select">
@@ -83,10 +83,10 @@
               <option value="Light_27700">Light</option>
             </select>
           </div>
-        {% endif %}
         <div id="map" class="map"></div>
       </tbody>  
     </table>
+    {% endif %}
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
