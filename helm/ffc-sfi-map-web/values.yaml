@@ -31,7 +31,7 @@ container:
   imagePullPolicy: IfNotPresent
   requestMemory: 10Mi
   requestCpu: 10m
-  limitMemory: 200Mi
+  limitMemory: 250Mi
   limitCpu: 80m
   port: 3000
   googleTagManagerKey:
