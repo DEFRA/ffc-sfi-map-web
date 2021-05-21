@@ -32,7 +32,7 @@ container:
   requestMemory: 10Mi
   requestCpu: 10m
   limitMemory: 100Mi
-  limitCpu: 40m
+  limitCpu: 80m
   port: 3000
   googleTagManagerKey:
 
