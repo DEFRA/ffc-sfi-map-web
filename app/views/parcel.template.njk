@@ -17,7 +17,7 @@
         <a class="govuk-breadcrumbs__link" href="/search">Search</a>
       </li>
       <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/map?sbi={{sbi}}">My land</a>
+        <a id="myLand" class="govuk-breadcrumbs__link" href="">My land</a>
       </li>
     </ol>
   </div>
@@ -72,35 +72,47 @@
     </table>
   </div>
   <div class="govuk-grid-column-one-half">
+    {% if apiKey !== '' %}
     <table class="govuk-table">
       <tbody class="govuk-table__body">
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="sort">Change view</label>
-          <select class="govuk-select" id="layer-select" name="layer-select">
-            <option value="Aerial">Aerial</option>
-            <option value="AerialWithLabelsOnDemand">Aerial with labels</option>
-            <option value="RoadOnDemand">Road</option>
-            <option value="CanvasDark">Road dark</option>
-            <option value="OrdnanceSurvey">Ordnance Survey</option>
-          </select>
-        </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="sort">Change view</label>
+            <select class="govuk-select" id="layer-select" name="layer-select">
+              <option value="Road_27700" selected>Road</option>
+              <option value="Outdoor_27700">Outdoor</option>
+              <option value="Light_27700">Light</option>
+            </select>
+          </div>
         <div id="map" class="map"></div>
       </tbody>  
     </table>
+    {% endif %}
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
   <script src="<%= file.replace('../dist/', '/static/') %>"></script>
 <% }) %>
 <script>
+  const myLandBreadcrumbHref = '/map?sbi={{sbi}}&mapStyle='
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
   const sbi = {{ sbi }}
+  const apiKey = {{ apiKey | dump | safe }}
   const mapStyle = {{ mapStyle | dump | safe }}
 
-  document.getElementById("layer-select").value = mapStyle
+  const layerSelect = document.getElementById("layer-select")
+  const myLandBreadcrumbLink = document.getElementById("myLand")
 
-  map.displayMap(sbi, parcels, center)
+  layerSelect.value = mapStyle
+  myLandBreadcrumbLink.href = `${myLandBreadcrumbHref}${mapStyle}`
+
+  layerSelect.addEventListener("change", (e) => {
+    myLandBreadcrumbLink.href = `${myLandBreadcrumbHref}${e.target.value}`
+  })
+  
+  if(apiKey !== '') {
+    map.displayMap(apiKey, sbi, parcels, center)
+  }
 
 </script>
 {% endblock %}
