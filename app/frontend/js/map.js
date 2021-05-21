@@ -78,20 +78,22 @@ const buildMapLayers = (parcelSource, apiKey) => {
 
   const layers = []
 
-  mapStyles.map((mapStyle) => {
+  const mapStyleLayers = mapStyles.length
+
+  for (let i = 0; i < mapStyleLayers; ++i) {
     layers.push(
       new TileLayer({
         title: 'Road',
         type: 'base',
         visible: false,
         source: new XYZ({
-          url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyle}/{z}/{x}/{y}.png?key=${apiKey}`,
+          url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
           projection: 'EPSG:27700',
           tileGrid: tilegrid
         })
       })
     )
-  })
+  }
 
   layers.push(parcelLayer)
 
