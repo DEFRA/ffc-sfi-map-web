@@ -19,9 +19,8 @@ const styles = {
       color: 'rgba(249, 6, 44, 0.1)'
     }),
     text: new Text({
-      font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
-      stroke: new Stroke({ color: 'black', width: 0.5 })
+      font: '8px Verdana',
+      fill: new Fill({ color: 'black' })
     })
   })
 }
