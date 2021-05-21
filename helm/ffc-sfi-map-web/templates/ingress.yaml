@@ -1,3 +1,3 @@
-{{- include "ffc-helm-library.azure-ingress" (list . "ffc-sfi-map-web.ingress") -}}
-{{- define "ffc-sfi-map-web.ingress" -}}
+{{- include "ffc-helm-library.azure-ingress" (list . "ffc-sfi-apply-web.ingress") -}}
+{{- define "ffc-sfi-map-apply.ingress" -}}
 {{- end -}}
