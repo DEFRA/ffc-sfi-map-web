@@ -16,7 +16,7 @@ const schema = joi.object({
     strictHeader: joi.bool().default(true)
   }),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
-  osMapApiKey: joi.string().default('')
+  osMapApiKey: joi.string().default('').allow('')
 })
 
 // Build config
