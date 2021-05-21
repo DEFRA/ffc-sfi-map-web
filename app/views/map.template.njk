@@ -30,14 +30,16 @@
       <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
       Your land parcels
     </h1>
-    <div class="govuk-form-group">
-      <label class="govuk-label" for="sort">Change view</label>
-      <select class="govuk-select" id="layer-select" name="layer-select">
-        <option value="Road_27700" selected>Road</option>
-        <option value="Outdoor_27700">Outdoor</option>
-        <option value="Light_27700">Light</option>
-      </select>
-    </div>
+    {% if apiKey !== '' %}
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="sort">Change view</label>
+        <select class="govuk-select" id="layer-select" name="layer-select">
+          <option value="Road_27700" selected>Road</option>
+          <option value="Outdoor_27700">Outdoor</option>
+          <option value="Light_27700">Light</option>
+        </select>
+      </div>
+    {% endif %}
     <div id="map" class="map"></div>
     <table id="parcels" class="govuk-table">
       <thead class="govuk-table__head">
@@ -77,6 +79,9 @@
     document.getElementById("layer-select").value = mapStyle
   }
 
-  map.displayMap(apiKey, sbi, parcels, center)
+  if(apiKey !== '') {
+    map.displayMap(apiKey, sbi, parcels, center)
+  }
+
 </script>
 {% endblock %}

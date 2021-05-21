@@ -74,14 +74,16 @@
   <div class="govuk-grid-column-one-half">
     <table class="govuk-table">
       <tbody class="govuk-table__body">
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="sort">Change view</label>
-          <select class="govuk-select" id="layer-select" name="layer-select">
-            <option value="Road_27700" selected>Road</option>
-            <option value="Outdoor_27700">Outdoor</option>
-            <option value="Light_27700">Light</option>
-          </select>
-        </div>
+        {% if apiKey !== '' %}
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="sort">Change view</label>
+            <select class="govuk-select" id="layer-select" name="layer-select">
+              <option value="Road_27700" selected>Road</option>
+              <option value="Outdoor_27700">Outdoor</option>
+              <option value="Light_27700">Light</option>
+            </select>
+          </div>
+        {% endif %}
         <div id="map" class="map"></div>
       </tbody>  
     </table>
@@ -108,6 +110,9 @@
     myLandBreadcrumbLink.href = `${myLandBreadcrumbHref}${e.target.value}`
   })
   
-  map.displayMap(apiKey, sbi, parcels, center)
+  if(apiKey !== '') {
+    map.displayMap(apiKey, sbi, parcels, center)
+  }
+
 </script>
 {% endblock %}
