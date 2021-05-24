@@ -7,4 +7,7 @@ data:
   {{- if .Values.container.googleTagManagerKey }}
   GOOGLE_TAG_MANAGER_KEY: {{ quote .Values.container.googleTagManagerKey }}
   {{- end }}
+  {{- if .Values.container.osMapApiKey }}
+  OS_MAP_API_KEY: {{ quote .Values.container.osMapApiKey }}
+  {{- end }}
 {{- end -}}

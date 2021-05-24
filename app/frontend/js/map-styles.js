@@ -108,7 +108,29 @@ const landParcelStyles = {
   })
 }
 
+const highlightStyle = new Style({
+  fill: new Fill({
+    color: 'rgba(0, 0, 255, 0.1)'
+  }),
+  stroke: new Stroke({
+    color: 'blue',
+    width: 3
+  })
+})
+
+const pointerMoveStyle = new Style({
+  stroke: new Stroke({
+    color: 'blue',
+    width: 3
+  }),
+  fill: new Fill({
+    color: 'rgba(0, 0, 255, 0.1)'
+  })
+})
+
 export {
   landParcelStyles,
-  landCoverStyles
+  landCoverStyles,
+  highlightStyle,
+  pointerMoveStyle
 }
