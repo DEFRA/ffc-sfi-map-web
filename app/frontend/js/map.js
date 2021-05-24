@@ -2,7 +2,7 @@ import 'ol/ol.css'
 import GeoJSON from 'ol/format/GeoJSON'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import { Fill, Stroke, Style, Text } from 'ol/style'
+import { Fill, Stroke, Style } from 'ol/style'
 import { BingMaps, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { get as getProjection } from 'ol/proj'
@@ -10,28 +10,27 @@ import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import proj4 from 'proj4'
 import { register } from 'ol/proj/proj4'
-
-const styles = {
-  Polygon: new Style({
-    stroke: new Stroke({
-      color: 'red',
-      width: 1
-    }),
-    fill: new Fill({
-      color: 'rgba(249, 6, 44, 0.1)'
-    }),
-    text: new Text({
-      font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
-      stroke: new Stroke({ color: 'black', width: 0.5 })
-    })
-  })
-}
+import { landParcelStyles, landCoverStyles } from './map-styles'
 
 const styleFunction = (feature) => {
-  const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
-  styles.Polygon.getText().setText(label)
-  return styles[feature.getGeometry().getType()]
+  if (feature.get('land_cover_class_code') !== undefined) {
+    const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
+    const landCoverClassCode = feature.get('land_cover_class_code')
+
+    const landCoverClassCodeStyle = landCoverStyles.find(({ Code }) => Code === landCoverClassCode)
+
+    if (landCoverClassCodeStyle !== null && landCoverClassCodeStyle !== undefined) {
+      landCoverClassCodeStyle.Polygon.getText().setText(label)
+      return landCoverClassCodeStyle[feature.getGeometry().getType()]
+    } else {
+      landCoverStyles[0].Polygon.getText().setText(label)
+      return landCoverStyles[0][feature.getGeometry().getType()]
+    }
+  } else {
+    const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
+    landParcelStyles.Polygon.getText().setText(label)
+    return landParcelStyles[feature.getGeometry().getType()]
+  }
 }
 
 const createProjection = () => {
@@ -81,7 +80,7 @@ export function displayMap (sbi, parcels, coordinates) {
 
   const view = new View({
     center: coordinates,
-    zoom: 13,
+    zoom: 16,
     projection
   })
 
