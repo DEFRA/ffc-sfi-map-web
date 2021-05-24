@@ -10,8 +10,9 @@ import TileGrid from 'ol/tilegrid/TileGrid'
 import { landParcelStyles, landCoverStyles, highlightStyle, pointerMoveStyle } from './map-styles'
 
 const styleFunction = (feature) => {
+  const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
+
   if (feature.get('land_cover_class_code') !== undefined) {
-    const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
     const landCoverClassCode = feature.get('land_cover_class_code')
 
     const landCoverClassCodeStyle = landCoverStyles.find(({ Code }) => Code === landCoverClassCode)
@@ -24,7 +25,6 @@ const styleFunction = (feature) => {
       return landCoverStyles[0][feature.getGeometry().getType()]
     }
   } else {
-    const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
     landParcelStyles.Polygon.getText().setText(label)
     return landParcelStyles[feature.getGeometry().getType()]
   }
