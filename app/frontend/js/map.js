@@ -2,43 +2,32 @@ import 'ol/ol.css'
 import GeoJSON from 'ol/format/GeoJSON'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import { Fill, Stroke, Style, Text } from 'ol/style'
 import { XYZ, Vector as VectorSource } from 'ol/source'
 import { Tile as TileLayer, Vector as VectorLayer, Group } from 'ol/layer'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import TileGrid from 'ol/tilegrid/TileGrid'
-
-const styles = {
-  Polygon: new Style({
-    stroke: new Stroke({
-      color: 'red',
-      width: 1
-    }),
-    fill: new Fill({
-      color: 'rgba(249, 6, 44, 0.1)'
-    }),
-    text: new Text({
-      font: '8px Verdana',
-      fill: new Fill({ color: 'black' })
-    })
-  })
-}
-
-var highlightStyle = new Style({
-  fill: new Fill({
-    color: 'rgba(0, 0, 255, 0.1)'
-  }),
-  stroke: new Stroke({
-    color: 'blue',
-    width: 3
-  })
-})
+import { landParcelStyles, landCoverStyles, highlightStyle, pointerMoveStyle } from './map-styles'
 
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
-  styles.Polygon.getText().setText(label)
-  return styles[feature.getGeometry().getType()]
+
+  if (feature.get('land_cover_class_code') !== undefined) {
+    const landCoverClassCode = feature.get('land_cover_class_code')
+
+    const landCoverClassCodeStyle = landCoverStyles.find(({ Code }) => Code === landCoverClassCode)
+
+    if (landCoverClassCodeStyle !== null && landCoverClassCodeStyle !== undefined) {
+      landCoverClassCodeStyle.Polygon.getText().setText(label)
+      return landCoverClassCodeStyle[feature.getGeometry().getType()]
+    } else {
+      landCoverStyles[0].Polygon.getText().setText(label)
+      return landCoverStyles[0][feature.getGeometry().getType()]
+    }
+  } else {
+    landParcelStyles.Polygon.getText().setText(label)
+    return landParcelStyles[feature.getGeometry().getType()]
+  }
 }
 
 const tilegrid = new TileGrid({
@@ -57,7 +46,7 @@ const hightlightOnMouseOver = (parcelSource) => {
   document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
     if (e.id) {
       const selectedFeature = parcelSource.getFeatureById(e.id)
-      selectedFeature.setStyle(styles.Polygon)
+      selectedFeature.setStyle(landParcelStyles)
     }
   }))
 }
@@ -124,15 +113,7 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
 
   const selectPointerMove = new Select({
     condition: pointerMove,
-    style: new Style({
-      stroke: new Stroke({
-        color: 'blue',
-        width: 3
-      }),
-      fill: new Fill({
-        color: 'rgba(0, 0, 255, 0.1)'
-      })
-    })
+    style: pointerMoveStyle
   })
 
   map.addInteraction(selectClick)
