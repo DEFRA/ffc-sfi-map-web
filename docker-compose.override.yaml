@@ -10,8 +10,8 @@ services:
     image: ffc-sfi-map-web-development
     container_name: ffc-sfi-map-web-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3004:3004"
+      - "9233:9229"
     volumes:
       - ./app/:/home/node/app/
       - ./package.json:/home/node/package.json
