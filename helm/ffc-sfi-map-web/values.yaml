@@ -33,7 +33,7 @@ container:
   requestCpu: 10m
   limitMemory: 600Mi
   limitCpu: 350m
-  port: 3000
+  port: 3004
   googleTagManagerKey:
   osMapApiKey:
 
@@ -44,14 +44,14 @@ ingress:
 
 livenessProbe:
   path: /healthz
-  port: 3000
+  port: 3004
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
 
 readinessProbe:
   path: /healthy
-  port: 3000
+  port: 3004
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
