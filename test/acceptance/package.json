@@ -2,7 +2,7 @@
   "author": "Kaz Iyiola <kaz.iyiola@defra.gov.uk>",
   "license": "OGL-UK-3.0",
   "name": "ffc-sfi-apply-web",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "FFC apply for SFI map web front end",
   "homepage": "https://github.com/DEFRA/ffc-sfi-map-web",
   "contributors": [],
