@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  wdio-cucumber:
+    build: .
+    image: wdio-cucumber
+    container_name: webdriver-cuke
+    environment:
+      TEST_ENVIRONMENT_ROOT_URL: ${TEST_ENVIRONMENT_ROOT_URL}
+      CHROME_ARGS: "--headless --ignore-certificate-errors"
+      BROWSERSTACK_USERNAME: ${BROWSERSTACK_USERNAME}
+      BROWSERSTACK_ACCESS_KEY: ${BROWSERSTACK_ACCESS_KEY}
