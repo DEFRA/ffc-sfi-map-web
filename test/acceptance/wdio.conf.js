@@ -82,7 +82,7 @@ exports.config = {
     timeout: 60000, // <number> timeout for step definitions
     ignoreUndefinedDefinitions: false // <boolean> Enable this config to treat undefined definitions as warnings.
   },
-  //
+  
   // ====
   // Hooks
   // =====
