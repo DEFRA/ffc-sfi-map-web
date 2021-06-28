@@ -6,8 +6,6 @@ class Start extends Page {
   get startNewClaim () { return $('.govuk-button--start') }
   get startNow () { return $('#submit') }
     
-
-
   // define or overwrite page methods  
   open () {
     super.open('')
