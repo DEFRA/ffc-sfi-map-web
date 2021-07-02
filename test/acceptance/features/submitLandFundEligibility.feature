@@ -10,6 +10,7 @@ Feature: Check and submit land fund eligibility
         When I click on the element "#sbi"
         When I add "106651310" to the inputfield "#sbi"
         And I click on the element "#submit"
+        And I pause for 500ms
         Then I expect that the url contains "/map?sbi=106651310"
         And I pause for 500ms
         When I click on the link "SE9849 1742"
@@ -18,6 +19,7 @@ Feature: Check and submit land fund eligibility
     Scenario: User can click copyright link on value page
       Given I open the url "/"
       When I click on the link "© Crown copyright"
+      And I pause for 500ms
       Then I expect that element "h1" contains the text "Crown copyright"
 
     Scenario: User can click on Open Government Licence link
