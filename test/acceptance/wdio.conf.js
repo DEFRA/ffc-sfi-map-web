@@ -105,7 +105,7 @@ exports.config = {
     ignoreUndefinedDefinitions: false // <boolean> Enable this config to treat undefined definitions as warnings.
   },
   
-  // ====
+  //// ====
   // Hooks
   // =====
   onPrepare: function (config, capabilities) {
