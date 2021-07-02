@@ -45,8 +45,7 @@ Feature: Check and submit land fund eligibility
      
     Scenario: User can navigate back to search page
         Given I open the url "/parcel?sbi=106651310&sheetId=SE9849&parcelId=1742"
-        Then I expect that element "h1" contains the text "Parcel details"
-        ## When I click on the link "My land" 
+        Then I expect that element "h1" contains the text "Parcel details" 
         When I click on the land link
         And I pause for 500ms
         Then I expect that the url contains "/parcel"
@@ -58,7 +57,6 @@ Feature: Check and submit land fund eligibility
     Scenario: User can navigate back to home page
         Given I open the url "/parcel?sbi=106651310&sheetId=SE9849&parcelId=1742"
         Then I expect that element "h1" contains the text "Parcel details"
-        ## When I click on the link "My land"
         When I click on the land link
         And I pause for 500ms
         Then I expect that the url contains "/parcel"

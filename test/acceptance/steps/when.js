@@ -28,10 +28,6 @@ When(
   /^I (click) on start new calculator (button) "([^"]*)?"$/,
   clickElement
 )
-        
-// When(/^I clicks on the land link$/, function () {
-//   Parcel.clickOnLandLink()
-// })
 
 When(/^I click on the land link$/, async () => {
   Parcel.clickOnDeLandLink()
