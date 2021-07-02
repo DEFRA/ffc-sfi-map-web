@@ -12,7 +12,7 @@ class Start extends Page {
     browser.pause(3000)
   }
   
- // your page specific methods
+ //// your page specific methods
   clickOnStartNow () {
      browser.executeScript("element.querySelector('//a[contains(@href, '/search')]').click()")
   }
