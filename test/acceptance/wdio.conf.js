@@ -38,6 +38,28 @@ exports.config = {
       'browserstack.local': true,
       acceptInsecureCerts: true,
       acceptSslCerts: true
+    },
+
+    {
+      os: 'OS X',
+      osVersion: 'Big Sur',
+      browserName: 'Safari',
+      browserVersion: 'latest',
+      'browserstack.local': true,
+      acceptInsecureCerts: true,
+      acceptSslCerts: true
+    },
+
+    {
+      // Windows Edge 86
+      os: 'Windows',
+      osVersion: '10',
+      browserName: 'Edge',
+      browserVersion: '86',
+      'browserstack.local': true,
+      acceptInsecureCerts: true,
+      acceptSslCerts: true,
+      'browserstack.selenium_version': '4.0.0-alpha-6'
     }
   ],
   // ===================
@@ -82,7 +104,7 @@ exports.config = {
     timeout: 60000, // <number> timeout for step definitions
     ignoreUndefinedDefinitions: false // <boolean> Enable this config to treat undefined definitions as warnings.
   },
-  //
+  
   // ====
   // Hooks
   // =====

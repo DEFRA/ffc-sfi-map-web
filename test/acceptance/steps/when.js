@@ -14,6 +14,7 @@ import selectOptionByIndex from '../support/action/selectOptionByIndex'
 import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
+import Parcel from '../pageobjects/ffc-fsi-parcel'
 
 
 const { When } = require('cucumber')
@@ -27,6 +28,19 @@ When(
   /^I (click) on start new calculator (button) "([^"]*)?"$/,
   clickElement
 )
+
+When(/^I click on the land link$/, async () => {
+  Parcel.clickOnDeLandLink()
+});
+
+When(/^I click on the search link$/, async () => {
+  Parcel.clickOnSearchLink()
+});
+
+When(/^I click on the home link$/, function () {
+  Parcel.clickOnHomeLink()
+})
+ 
 
 When(
   /^I (add|set) "([^"]*)?" to the inputfield "([^"]*)?"$/,
