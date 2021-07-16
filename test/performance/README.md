@@ -10,6 +10,5 @@ The framework is based upon (jmeter)[https://jmeter.apache.org/], and utilises a
 - (jmeter v5.1.1)[https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz] (for local running)
 
 ## How to run the tests
-
 - `cd test/performance`
 - `docker-compose -f ../../docker-compose.yaml -f docker-compose.jmeter.yaml run jmeter-test`
