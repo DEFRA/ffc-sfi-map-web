@@ -40,7 +40,7 @@
             </elementProp>
             <elementProp name="loops" elementType="Argument">
               <stringProp name="Argument.name">loops</stringProp>
-              <stringProp name="Argument.value">20</stringProp>
+              <stringProp name="Argument.value">2</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
