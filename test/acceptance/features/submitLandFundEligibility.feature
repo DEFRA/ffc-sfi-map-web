@@ -10,7 +10,7 @@ Feature: Check and submit land fund eligibility
         When I click on the element "#sbi"
         When I add "106651310" to the inputfield "#sbi"
         And I click on the element "#submit"
-        And I pause for 500ms
+        And I pause for 700ms
         Then I expect that the url contains "/map?sbi=106651310"
         And I pause for 500ms
         When I click on the link "SE9849 1742"

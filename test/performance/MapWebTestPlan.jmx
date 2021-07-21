@@ -30,12 +30,12 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="threads" elementType="Argument">
               <stringProp name="Argument.name">threads</stringProp>
-              <stringProp name="Argument.value">100</stringProp>
+              <stringProp name="Argument.value">10</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="ramp" elementType="Argument">
               <stringProp name="Argument.name">ramp</stringProp>
-              <stringProp name="Argument.value">20</stringProp>
+              <stringProp name="Argument.value">2</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="loops" elementType="Argument">
