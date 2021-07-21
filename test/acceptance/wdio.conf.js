@@ -51,7 +51,7 @@ exports.config = {
     },
 
     {
-      // Windows Edge 86
+      //// Windows Edge 86
       os: 'Windows',
       osVersion: '10',
       browserName: 'Edge',
