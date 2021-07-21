@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  ffc-sfi-map-web:
+    command: npm run start:watch
+    build:
+      target: development
+    image: ffc-sfi-map-web
+    environment:
+      NODE_ENV: test
+  jmeter-test:
+    image: justb4/jmeter:5.1.1
+    depends_on:
+      - ffc-sfi-map-web
+    command: "-Jgroup1.threads=20 -Jgroup1.loops=2 -Jgroup1.ramp=10 -n -t /perf-tests/MapWebTestPlan.jmx -l /perf-tests/testresults.jtl -e -o /test-output/htmlreport -f"
+    volumes:
+      - ./test-output/:/test-output/
+      - ./test/performance/:/perf-tests/
+  
