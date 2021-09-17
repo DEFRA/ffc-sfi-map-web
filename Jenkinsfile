@@ -1,3 +1,3 @@
-@Library('helm-version-change') _
+@Library('defra-library@helm-version-change') _
 
 buildNodeJs()
