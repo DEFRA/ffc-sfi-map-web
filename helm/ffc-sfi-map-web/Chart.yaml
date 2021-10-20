@@ -1,4 +1,4 @@
-apiVersion: v2
+apiVersion: v3
 description: FFC SFI front end mapping application
 name: ffc-sfi-map-web
 # this version is automatically updated in the build pipline
