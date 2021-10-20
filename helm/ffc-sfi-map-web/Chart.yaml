@@ -1,9 +1,9 @@
-apiVersion: v3
+apiVersion: v2
 description: FFC SFI front end mapping application
 name: ffc-sfi-map-web
 # this version is automatically updated in the build pipline
 version: 1.0.0
 dependencies:
 - name: ffc-helm-library
-  version: ^2.11.0
+  version: ^3.0.0
   repository: https://raw.githubusercontent.com/defra/ffc-helm-repository/master/
