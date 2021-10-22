@@ -73,6 +73,7 @@ const buildMapLayers = (parcelSource, apiKey) => {
           url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
           tileGrid: tilegrid
         })
+        // className: 'grayscale-invert'
       })
     )
   }
@@ -83,6 +84,7 @@ const buildMapLayers = (parcelSource, apiKey) => {
 }
 
 export function displayMap (apiKey, sbi, parcels, coordinates) {
+  console.log(parcels)
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const layers = buildMapLayers(parcelSource, apiKey)
@@ -118,6 +120,7 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
 
   map.addInteraction(selectClick)
   map.addInteraction(selectPointerMove)
+  map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
 
   selectClick.on('select', function (e) {
     window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}&mapStyle=${select.value}`

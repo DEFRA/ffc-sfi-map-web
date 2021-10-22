@@ -13,7 +13,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -31,7 +31,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -49,7 +49,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -67,7 +67,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -85,7 +85,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -102,7 +102,7 @@ const landParcelStyles = {
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })

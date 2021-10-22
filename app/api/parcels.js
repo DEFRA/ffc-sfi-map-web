@@ -2,6 +2,16 @@ const base = require('./base')
 const config = require('../config')
 const turf = require('@turf/turf')
 
+const getLandParcels = async (sbi) => {
+  const url = `${config.publicApi}LandParcels/MapServer/0/query?where=SBI=${sbi}&outFields=sheet_id%2C+parcel_id&returnGeometry=false&f=geojson`
+  return base.get(url)
+}
+
+const getLandCovers = async (sbi, sheetId, parcelId) => {
+  const url = `${config.publicApi}LandCovers/MapServer/0/query?where=SBI=${sbi}+AND+sheet_id='${sheetId}'+AND+parcel_id='${parcelId}'&outFields=*&outSR=27700&f=geojson`
+  return base.get(url)
+}
+
 const getParcels = async (sbi) => {
   const url = `${config.publicApi}LandParcels/MapServer/0/query?where=SBI=${sbi}&outFields=*&outSR=27700&f=geojson`
   const parcels = await base.get(url)
@@ -28,5 +38,7 @@ const getParcelCovers = async (sbi, sheetId, parcelId) => {
 
 module.exports = {
   getParcels,
-  getParcelCovers
+  getParcelCovers,
+  getLandParcels,
+  getLandCovers
 }

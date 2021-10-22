@@ -91,6 +91,12 @@ module.exports = {
       template: 'app/views/parcel.template.njk',
       chunks: ['map']
     }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/land-cover.njk',
+      template: 'app/views/land-cover.template.njk',
+      chunks: ['map']
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[fullhash].css'
     })
