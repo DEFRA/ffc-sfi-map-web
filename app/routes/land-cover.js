@@ -31,6 +31,8 @@ module.exports = {
       const apiKey = config.osMapApiKey || ''
       mapStyle = mapStyle || 'Road_27700'
 
+      covers.sort((a, b) => (a.description > b.description) ? 1 : -1)
+
       return h.view('land-cover', { apiKey, sbi, sheetId: 0, parcelId: 0, parcels: featureCollection, center, totalArea, covers, mapStyle })
     }
   }
