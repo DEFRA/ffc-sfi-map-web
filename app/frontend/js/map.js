@@ -46,7 +46,7 @@ const hightlightOnMouseOver = (parcelSource) => {
   document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
     if (e.id) {
       const selectedFeature = parcelSource.getFeatureById(e.id)
-      selectedFeature.setStyle(landParcelStyles)
+      selectedFeature.setStyle(landCoverStyles)
     }
   }))
 }
@@ -54,7 +54,8 @@ const hightlightOnMouseOver = (parcelSource) => {
 const mapStyles = [
   'Road_27700',
   'Outdoor_27700',
-  'Light_27700']
+  'Light_27700',
+  'Leisure_27700']
 
 const buildMapLayers = (parcelSource, apiKey) => {
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
@@ -72,8 +73,8 @@ const buildMapLayers = (parcelSource, apiKey) => {
         source: new XYZ({
           url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
           tileGrid: tilegrid
-        })
-        // className: 'grayscale-invert'
+        }),
+        className: 'grayscale-invert'
       })
     )
   }

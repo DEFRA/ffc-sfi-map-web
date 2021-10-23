@@ -45,7 +45,7 @@
         </dd>
       </div>
     </dl>
-    <table class="govuk-table">
+    <table class="govuk-table" id="parcels">
       <caption class="govuk-table__caption govuk-table__caption--m">Land covers</caption>
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -55,7 +55,7 @@
       </thead>
       <tbody class="govuk-table__body">
         {% for cover in covers %}
-        <tr class="govuk-table__row">
+        <tr class="govuk-table__row" id="{{cover.id}}">
           <th scope="row" class="govuk-table__header">{{ cover.description }} - {{ cover.sheet_id }} {{ cover.parcel_id }}</th>
           <td class="govuk-table__cell">{{ cover.area_ha | round(4) }}</td>
         </tr>
@@ -73,6 +73,7 @@
               <option value="Road_27700" selected>Road</option>
               <option value="Outdoor_27700">Outdoor</option>
               <option value="Light_27700">Light</option>
+              <option value="Leisure_27700">Leisure</option>
             </select>
           </div>
         <div id="map" class="map"></div>

@@ -27,8 +27,6 @@ module.exports = {
       const totalArea = featureCollection.features.reduce((x, y) => x + y.properties.area_ha, 0)
       const covers = featureCollection.features.map(x => x.properties)
 
-      console.log(covers)
-
       let { mapStyle } = request.query
       const apiKey = config.osMapApiKey || ''
       mapStyle = mapStyle || 'Road_27700'
