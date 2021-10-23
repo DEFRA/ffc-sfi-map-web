@@ -5,7 +5,7 @@ const landCoverStyles = [{
   Code: '000',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
@@ -13,7 +13,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -23,16 +23,16 @@ const landCoverStyles = [{
   Code: '110',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'red',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
       color: 'rgb(255, 236, 176)'
     }),
     text: new Text({
-      font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
-      stroke: new Stroke({ color: 'black', width: 0.5 })
+      font: '8px Verdana',
+      fill: new Fill({ color: 'black' }),
+      stroke: new Stroke({ color: 'black', width: 0.3 })
     })
   })
 },
@@ -41,7 +41,7 @@ const landCoverStyles = [{
   Code: '130',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
@@ -49,7 +49,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -59,7 +59,7 @@ const landCoverStyles = [{
   Code: '131',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
@@ -67,7 +67,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -77,7 +77,7 @@ const landCoverStyles = [{
   Code: '140',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
@@ -85,7 +85,7 @@ const landCoverStyles = [{
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -94,7 +94,7 @@ const landCoverStyles = [{
 const landParcelStyles = {
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'red',
+      color: 'grey',
       width: 1
     }),
     fill: new Fill({
@@ -102,7 +102,7 @@ const landParcelStyles = {
     }),
     text: new Text({
       font: '6px Verdana',
-      fill: new Fill({ color: 'white' }),
+      fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.5 })
     })
   })
@@ -113,14 +113,19 @@ const highlightStyle = new Style({
     color: 'rgba(0, 0, 255, 0.1)'
   }),
   stroke: new Stroke({
-    color: 'blue',
+    color: 'grey',
     width: 3
+  }),
+  text: new Text({
+    font: '6px Verdana',
+    fill: new Fill({ color: 'white' }),
+    stroke: new Stroke({ color: 'white', width: 0.5 })
   })
 })
 
 const pointerMoveStyle = new Style({
   stroke: new Stroke({
-    color: 'blue',
+    color: 'grey',
     width: 3
   }),
   fill: new Fill({

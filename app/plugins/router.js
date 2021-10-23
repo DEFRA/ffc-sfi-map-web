@@ -6,7 +6,8 @@ const routes = [].concat(
   require('../routes/static'),
   require('../routes/search'),
   require('../routes/map'),
-  require('../routes/parcel')
+  require('../routes/parcel'),
+  require('../routes/land-cover')
 )
 
 module.exports = {

@@ -85,3 +85,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
   width: 100%;
   margin-bottom: 10px;
 }
+
+.grayscale-invert {
+  filter: grayscale(80%) invert(1);
+}
