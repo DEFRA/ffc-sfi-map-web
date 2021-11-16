@@ -11,7 +11,8 @@ module.exports = {
   entry: {
     core: './app/frontend/css/index.js',
     cookies: './app/frontend/js/cookies.js',
-    map: './app/frontend/js/map.js'
+    map: './app/frontend/js/map.js',
+    interactiveMap: './app/frontend/js/interactive-map.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -84,6 +85,12 @@ module.exports = {
       filename: '../views/map.njk',
       template: 'app/views/map.template.njk',
       chunks: ['map']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/interactive-map.njk',
+      template: 'app/views/interactive-map.template.njk',
+      chunks: ['interactiveMap']
     }),
     new HtmlWebpackPlugin({
       inject: false,
