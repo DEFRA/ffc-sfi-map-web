@@ -135,9 +135,6 @@ const selectPointerMove = (map) => {
     style: highlightStyle
   })
 
-  selectMove.on('select', function (e) {
-  })
-
   map.addInteraction(selectMove)
 }
 
