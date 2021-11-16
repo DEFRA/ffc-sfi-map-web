@@ -19,3 +19,5 @@ _layout.njk
 _cookie-banner.njk
 map.njk
 parcel.njk
+interactive-map.njk
+land-cover.njk

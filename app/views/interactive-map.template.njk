@@ -1,0 +1,144 @@
+{% extends './_layout.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Search",
+        href: "/search"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
+      Interactve Map Prototype
+    </h1>
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">
+        Contents
+      </h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#map-view">
+            Map view
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#list-view">
+            List view
+          </a>
+        </li>
+      </ul>
+      <div class="govuk-tabs__panel" id="map-view">
+        {% if apiKey !== '' %}
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <label class="govuk-label" for="sort">Change view</label>
+              <select class="govuk-select" id="layer-select" name="layer-select">
+                <option value="Road_27700" selected>Road</option>
+                <option value="Outdoor_27700">Outdoor</option>
+                <option value="Light_27700">Light</option>
+                <option value="Leisure_27700">Leisure</option>
+              </select>
+              <div class="mapContainer">
+                <p class="govuk-body">
+                  <div id="map" class="map"></div>
+                </p>
+              </div>
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+              <div id="parcelCover">           
+                <h2 id="parcelId" class="govuk-heading-m"></h2>
+                <a id="selectParcelLink" class="govuk-link">Add this parcel</a>
+                <div id="parcelCoverMap" class="parcelCoverMap"></div>
+                <p id="parcelCoverInfo" class="govuk-body-s"></p>      
+                <div class="mapKey">
+                  <p>
+                    <h3 class="govuk-heading-s">Key</h3>
+                      <ul>
+                          <li><span class="bpsIneligibleFeature"></span> BPS ineligible feature</li>
+                          <li><span class="arableLand"></span> Arable land</li>
+                          <li><span class="permanentGrassLand"></span> Permanent grassLand</li>
+                          <li><span class="permanentCrops"></span> Permanent crops</li>
+                      </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="govuk-tabs__panel" id="list-view">
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="selectAllParcels" name="selectAllParcels" type="checkbox" value="all">
+            <label class="govuk-label govuk-checkboxes__label" for="selectAllParcels">
+              Select all
+            </label>
+          </div>
+        </div>
+        <br />
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          {% for feature in parcels.features %}
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="{{ feature.properties.sheet_id }}{{ feature.properties.parcel_id }}" name="parcels" type="checkbox" value="{{ feature.properties.sheet_id }}{{ feature.properties.parcel_id }}">
+              <label class="govuk-label govuk-checkboxes__label" for="{{ feature.properties.sheet_id }}{{ feature.properties.parcel_id }}">
+                {{ feature.properties.sheet_id }} {{ feature.properties.parcel_id }}
+              </label>
+              <div id="parcel-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                {{ feature.properties.area_ha | round(4) }}ha
+              </div>
+              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="hectares_{{ item.value }}">
+                    Hectares to use in this land parcel
+                  </label>                     
+                    <input class="govuk-input govuk-!-width-one-third" id="parcelArea_{{ feature.properties.sheet_id }}{{ feature.properties.parcel_id }}" name="parcelArea_{{ feature.properties.sheet_id }}{{ feature.properties.parcel_id }}" value="{{ feature.properties.area_ha }}" type="text" spellcheck="false" autocomplete="false">                      
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
+<script>
+  const parcels = {{ parcels | dump | safe }}
+  const center = {{ center | dump | safe }}
+  const sbi = {{ sbi }}
+  const apiKey = {{ apiKey | dump | safe }}
+  const mapStyle = {{ mapStyle | dump | safe }}
+
+  if (mapStyle !== '') { 
+    document.getElementById("layer-select").value = mapStyle
+  }
+
+  if(apiKey !== '') {
+    interactiveMap.displayInteractiveMap(apiKey, sbi, parcels, center, [], true)
+  }
+
+</script>
+{% endblock %}
