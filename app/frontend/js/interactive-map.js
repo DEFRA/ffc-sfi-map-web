@@ -10,6 +10,8 @@ import TileGrid from 'ol/tilegrid/TileGrid'
 import { landParcelStyles, landCoverStyles, highlightStyle, selectedStyle } from './map-styles'
 import { initiateMap, addParcel } from './map-static'
 
+const eligibleLandCoverCodes = ['110', '130']
+
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
 
@@ -77,9 +79,10 @@ const getParcelCovers = (sbi, sheetId, parcelId) => {
     const response = JSON.parse(request.response)
 
     let landCover = ''
+    let eligibleLandCoverTotal = 0
 
     for (const cover of response.covers) {
-      console.log(cover)
+      if (eligibleLandCoverCodes.includes(cover.land_cover_class_code)) eligibleLandCoverTotal = eligibleLandCoverTotal + cover.area_ha
       landCover += `<strong>${cover.description}:</strong> ${cover.area_ha.toFixed(4)}ha<br />`
     }
 
@@ -89,6 +92,8 @@ const getParcelCovers = (sbi, sheetId, parcelId) => {
     document.getElementById('parcelId').innerHTML = `${response.sheetId}${response.parcelId}`
     document.getElementById('parcelCoverInfo').innerHTML = `<br />
           <strong>Total Area:</strong> ${response.totalArea.toFixed(4)}ha
+          <br />
+          <strong>Total Eligible Area:</strong> ${eligibleLandCoverTotal.toFixed(4)}ha
           <br /><br />
           ${landCover}`
   }
