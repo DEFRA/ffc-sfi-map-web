@@ -1,4 +1,5 @@
 import { Fill, Stroke, Style, Text } from 'ol/style'
+import { pattern, orangeLinesPattern, redLinesPattern } from './pattern-style'
 
 const landCoverStyles = [{
   Name: 'BPSIneligibleFeature',
@@ -9,10 +10,10 @@ const landCoverStyles = [{
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(168, 111, 0)'
+      color: redLinesPattern
     }),
     text: new Text({
-      font: '10px Verdana',
+      font: '18px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -27,10 +28,10 @@ const landCoverStyles = [{
       width: 1
     }),
     fill: new Fill({
-      color: 'rgb(255, 236, 176)'
+      color: orangeLinesPattern
     }),
     text: new Text({
-      font: '10px Verdana',
+      font: '18px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -45,10 +46,10 @@ const landCoverStyles = [{
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(136, 206, 102)'
+      color: pattern
     }),
     text: new Text({
-      font: '10px Verdana',
+      font: '18px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -63,10 +64,10 @@ const landCoverStyles = [{
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(136, 206, 102)'
+      color: pattern
     }),
     text: new Text({
-      font: '10px Verdana',
+      font: '18px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -81,10 +82,10 @@ const landCoverStyles = [{
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(30, 130, 76, 1)'
+      color: pattern
     }),
     text: new Text({
-      font: '10px Verdana',
+      font: '18px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
