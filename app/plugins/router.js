@@ -8,7 +8,8 @@ const routes = [].concat(
   require('../routes/map'),
   require('../routes/parcel'),
   require('../routes/land-cover'),
-  require('../routes/interactive-map')
+  require('../routes/interactive-map'),
+  require('../routes/map-land-cover')
 )
 
 module.exports = {

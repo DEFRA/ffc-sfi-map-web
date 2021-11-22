@@ -21,3 +21,4 @@ map.njk
 parcel.njk
 interactive-map.njk
 land-cover.njk
+map-land-cover.njk

@@ -1,0 +1,57 @@
+{% extends './_layout.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Search",
+        href: "/search"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">Single Business Identifier: {{ sbi }}</span>
+      Your land parcels
+    </h1>
+    {% if apiKey !== '' %}
+      <div id="map" class="map"></div>
+    {% endif %}
+  </div>
+</div>
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
+<script>
+  const parcels = {{ parcels | dump | safe }}
+  const center = {{ center | dump | safe }}
+  const sbi = {{ sbi }}
+  const apiKey = {{ apiKey | dump | safe }}
+  const mapStyle = {{ mapStyle | dump | safe }}
+
+  if (mapStyle !== '') { 
+    document.getElementById("layer-select").value = mapStyle
+  }
+
+  if(apiKey !== '') {
+    mapLandCover.displayMap(apiKey, sbi, parcels, center)
+  }
+
+</script>
+{% endblock %}

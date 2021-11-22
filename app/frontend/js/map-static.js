@@ -8,6 +8,7 @@ import TileGrid from 'ol/tilegrid/TileGrid'
 import { landParcelStyles, landCoverStyles } from './map-styles'
 
 let map = new Map()
+let parcelSource = new VectorSource()
 
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
@@ -54,24 +55,36 @@ const initiateMap = (target, apiKey, coordinates) => {
     target,
     view: new View({
       center: coordinates,
+      maxZoom: 16,
       zoom: 7,
       extent: [-238375.0, 0.0, 900000.0, 1376256.0],
       resolutions: tilegrid.getResolutions()
     })
   })
+
+  return map
 }
 
-const addParcel = (parcels) => {
+const getParcelSource = () => parcelSource
+
+const removeAllParcels = () => {
   map.getLayers().forEach((layer) => {
+    console.log(layer.className)
     layer.className_ === 'ol-layer' && map.removeLayer(layer)
   })
+}
+
+const addParcel = (parcels, removeAll = true, fitExtent = true) => {
+  removeAll && removeAllParcels()
 
   const features = new GeoJSON().readFeatures(parcels)
-  const parcelSource = new VectorSource({ features })
+  parcelSource = new VectorSource({ features })
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
 
   map.addLayer(parcelLayer)
-  map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
+  fitExtent && map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
+
+  return { parcelSource, parcelLayer }
 }
 
-export { initiateMap, addParcel }
+export { initiateMap, addParcel, getParcelSource }

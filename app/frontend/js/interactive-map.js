@@ -79,6 +79,7 @@ const getParcelCovers = (sbi, sheetId, parcelId) => {
     let landCover = ''
 
     for (const cover of response.covers) {
+      console.log(cover)
       landCover += `<strong>${cover.description}:</strong> ${cover.area_ha.toFixed(4)}ha<br />`
     }
 

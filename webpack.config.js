@@ -12,7 +12,8 @@ module.exports = {
     core: './app/frontend/css/index.js',
     cookies: './app/frontend/js/cookies.js',
     map: './app/frontend/js/map.js',
-    interactiveMap: './app/frontend/js/interactive-map.js'
+    interactiveMap: './app/frontend/js/interactive-map.js',
+    mapLandCover: './app/frontend/js/map-land-cover.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -91,6 +92,12 @@ module.exports = {
       filename: '../views/interactive-map.njk',
       template: 'app/views/interactive-map.template.njk',
       chunks: ['interactiveMap']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/map-land-cover.njk',
+      template: 'app/views/map-land-cover.template.njk',
+      chunks: ['mapLandCover']
     }),
     new HtmlWebpackPlugin({
       inject: false,
