@@ -73,8 +73,7 @@ const buildMapLayers = (parcelSource, apiKey) => {
         source: new XYZ({
           url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
           tileGrid: tilegrid
-        }),
-        className: 'grayscale-invert'
+        })
       })
     )
   }
