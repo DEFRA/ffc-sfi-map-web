@@ -2,7 +2,7 @@ const { getLandParcels, getLandCovers } = require('../api')
 const turf = require('@turf/turf')
 const config = require('../config')
 
-module.exports = {
+module.exports = [{
   method: 'GET',
   path: '/land-cover',
   options: {
@@ -36,4 +36,28 @@ module.exports = {
       return h.view('land-cover', { apiKey, sbi, sheetId: 0, parcelId: 0, parcels: featureCollection, center, totalArea, covers, mapStyle })
     }
   }
-}
+},
+{
+  method: 'POST',
+  path: '/land-cover',
+  options: {
+    handler: async (request, h) => {
+      const featureCollection = {
+        type: 'FeatureCollection',
+        crs: { type: 'name', properties: { name: 'EPSG:27700' } },
+        features: []
+      }
+
+      const payload = JSON.parse(request.payload)
+
+      for (const landParcel of payload) {
+        const sheetId = landParcel.sheetId
+        const parcelId = landParcel.parcelId
+        const sbi = landParcel.sbi
+        const landcover = await getLandCovers(sbi, sheetId, parcelId)
+        featureCollection.features = [...featureCollection.features, ...landcover.features]
+      }
+      return h.response(featureCollection)
+    }
+  }
+}]

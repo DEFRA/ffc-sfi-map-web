@@ -11,7 +11,7 @@ const linesPattern = (strokeStyle, lineIncline = -180, lineWidth = 5) => {
   let x = 0
   let z = lineIncline
 
-  context.fillStyle = 'white'
+  context.fillStyle = 'rgba(255,255,255, 0.2)'
   context.fillRect(0, 0, canvas.width, canvas.height)
 
   while (i < max) {
@@ -29,19 +29,19 @@ const linesPattern = (strokeStyle, lineIncline = -180, lineWidth = 5) => {
 }
 
 const orangeLinesPattern = (() => {
-  return linesPattern('orange')
+  return linesPattern('rgba(255,102,0, 0.2)')
 })()
 
 const redLinesPattern = (() => {
-  return linesPattern('red', 0, 12)
+  return linesPattern('rgba(255,0,0, 0.2)', 0, 12)
 })()
 
 const pattern = (() => {
   canvas.width = 8 * pixelRatio
   canvas.height = 8 * pixelRatio
-  context.fillStyle = 'green'
+  context.fillStyle = 'rgba(0, 51, 0, 0.2)'
   context.fillRect(0, 0, canvas.width, canvas.height)
-  context.fillStyle = 'white'
+  context.fillStyle = 'rgba(255,255,255, 0.2)'
   context.beginPath()
   context.arc(4 * pixelRatio, 4 * pixelRatio, 1.5 * pixelRatio, 0, 2 * Math.PI)
   context.fill()

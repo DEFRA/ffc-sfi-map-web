@@ -99,7 +99,24 @@ const landParcelStyles = {
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(252,141,98, 0.9)'
+      color: 'rgba(252,141,98, 0.5)'
+    }),
+    text: new Text({
+      font: '8px Verdana',
+      fill: new Fill({ color: 'black' }),
+      stroke: new Stroke({ color: 'black', width: 0.3 })
+    })
+  })
+}
+
+const landParcelVectorStyles = {
+  Polygon: new Style({
+    stroke: new Stroke({
+      color: 'rgba(51,51,102, 1)',
+      width: 1
+    }),
+    fill: new Fill({
+      color: 'rgba(51,51,153, 0.3)'
     }),
     text: new Text({
       font: '8px Verdana',
@@ -146,6 +163,7 @@ const pointerMoveStyle = new Style({
 
 export {
   landParcelStyles,
+  landParcelVectorStyles,
   landCoverStyles,
   highlightStyle,
   pointerMoveStyle,

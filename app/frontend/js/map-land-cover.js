@@ -4,11 +4,12 @@ import { initiateMap, addParcel, getParcelSource } from './map-static'
 
 let map = new Map()
 let landParcels = {}
+let featureCollection = {}
 
-const getParcelCovers = (sbi, sheetId, parcelId) => {
+const getParcelCoversPost = (parcels) => {
   const request = new XMLHttpRequest()
-  request.open('GET', `/parcel-cover?sbi=${sbi}&sheetId=${sheetId}&parcelId=${parcelId}`, false)
-  request.send()
+  request.open('POST', '/land-cover', false)
+  request.send(JSON.stringify(parcels))
 
   if (request.status === 200) {
     return JSON.parse(request.responseText)
@@ -21,24 +22,30 @@ const getCurrentExtent = () => {
 
 const getFeaturesInExtent = () => {
   const extent = getCurrentExtent()
-  console.log('extent: ' + extent)
-  const featureCollection = {
-    type: 'FeatureCollection',
-    crs: { type: 'name', properties: { name: 'EPSG:27700' } },
-    features: []
-  }
+  const parcels = []
 
   getParcelSource().forEachFeatureInExtent(extent, (feature) => {
-    console.log('feature: ' + feature.get('parcel_id'))
     const sbi = feature.get('sbi')
     const sheetId = feature.get('sheet_id')
     const parcelId = feature.get('parcel_id')
-    const parcelCovers = getParcelCovers(sbi, sheetId, parcelId)
-    console.log(parcelCovers)
-    featureCollection.features = [...featureCollection.features, ...parcelCovers.parcels.features]
+    console.log(checkFeatures(sheetId, parcelId))
+    parcels.push({ sbi, sheetId, parcelId })
   })
 
-  addParcel(featureCollection, true, false)
+  featureCollection = getParcelCoversPost(parcels)
+  console.log('featureCollection: ' + JSON.stringify(featureCollection))
+  addParcel(featureCollection, false, false)
+}
+
+const checkFeatures = (sheetId, parcelId) => {
+  console.log('checkFeatures: ' + JSON.stringify(featureCollection.features))
+  const features = featureCollection?.features
+  if (features) {
+    const foundFeature = features.map(feature => feature.properties.sheetId === sheetId && feature.properties.parcelId === parcelId)
+    return foundFeature.length
+  }
+
+  return 0
 }
 
 const zoomEvent = () => {
@@ -56,7 +63,7 @@ const zoomEvent = () => {
 
 export function displayMap (apiKey, sbi, parcels, coordinates, target = 'map') {
   landParcels = parcels
-  map = initiateMap(target, apiKey, coordinates) // eslint-disable-line no-unused-vars
+  map = initiateMap(target, apiKey, coordinates, false) // eslint-disable-line no-unused-vars
   addParcel(parcels)
   zoomEvent()
 }
